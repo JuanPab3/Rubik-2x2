@@ -3,7 +3,7 @@ import pygame as pg
 
 pg.init()
 
-win = pg.display.set_mode((600,600))
+win = pg.display.set_mode((600,500))
 pg.display.set_caption("Rubik Cube 2X2")
 
 #=====================================CLASES====================================
@@ -119,9 +119,11 @@ turno = 0
 
 setCube(cube,pasos[turno])  #Se deja el cubo en Estado Inicial
 
+font = pg.font.SysFont("VT323",24,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
+
 while  run:
 
-    pg.time.delay(250) # Tiempo en ms para entre frames
+    pg.time.delay(120) # Tiempo en ms para entre frames
 
     for event in pg.event.get():
         if event.type == pg.QUIT: # Salir del loop
@@ -134,14 +136,18 @@ while  run:
     if keys[pg.K_RIGHT]:
         turno = turno + 1
         if (turno >= len(pasos)):
-            turno = 0
+            turno -= 1
         setCube(cube,pasos[turno])
 
     if keys[pg.K_LEFT]:
         turno = turno - 1
         if (turno < 0):
-            turno = 0
+            turno += 1
         setCube(cube,pasos[turno])
+
+    text = font.render("Turno {}".format(1+turno),True, (255,255,255)) # Render del texto en la pantalla
+
+    win.blit(text,(400,450))
 
     for i in cube:
         pg.draw.rect(win,i.color,(i.x,i.y,i.width,i.height))
