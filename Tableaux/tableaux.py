@@ -9,7 +9,7 @@ letrasProposicionales = [chr(x) for x in range(97, 123)]
 # inicializa la lista de interpretaciones
 listaInterpsVerdaderas = []
 # inicializa la lista de hojas
-listaHojas = []
+global listaHojas = []
 
 ##############################################################################
 # Definición de objeto tree y funciones de árboles
@@ -67,11 +67,11 @@ def par_complementario(l):
         if i[0] == "-" :
             for j in l:
                 if len(j)== 1 and i[1]== j:
-                    return True 
+                    return True
     return False
-    
 
-	
+
+
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
@@ -82,11 +82,11 @@ def es_literal(f):
     elif f.label == "-" and f.right.label not in [">","-","Y","O"]:
         return es_literal(f.right)
     elif f.left != None:
-        return False 
-    else: return False 
-    
- 
-        
+        return False
+    else: return False
+
+
+
 
 def no_literales(l):
 	# Esta función determina si una lista de fórmulas contiene
@@ -95,12 +95,65 @@ def no_literales(l):
 	# Output: None/f, tal que f no es literal
 	return False
 
-def clasifica_y_extiende(f):
-	# clasifica una fórmula como alfa o beta y extiende listaHojas
-	# de acuerdo a la regla respectiva
-	# Input: f, una fórmula como árbol
-	# Output: no tiene output, pues modifica la variable global listaHojas
-	global listaHojas
+def clasifica_y_extiende(hoja:list; f:Tree):
+	tipo = ""
+	listaHojas = []
+	#===TIPO_ALFA===#
+		if (f.label == '-') and (f.right.label == '-'):
+		tipo = "ALFA1"
+	elif (f.label == 'Y'):
+		tipo = "ALFA2"
+	elif (f.label == '-') and (f.right.label == 'O'):
+		tipo = "ALFA3"
+	elif (f.label == '-') and (f.right.label == '>'):
+		tipo = "ALFA4"
+	#===TIPO_OMEGA===#
+	elif (f.label == '-') and (f.right.label == 'Y'):
+		tipo = "OMEGA1"
+	elif (f.label == 'O'):
+		tipo = "OMEGA2"
+	elif (f.label == '>'):
+		tipo = "OMEGA3"
+	#===CONVERSIÓN===#
+	if   (tipo == "ALFA1"):
+		aux1 = [f.right]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+	elif (tipo == "ALFA2"):
+		aux1 = [f.right]
+		aux2 = [f.left]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
+	elif (tipo == "ALFA3"):
+		aux1 = [Tree('-',None,f.right)]
+		aux2 = [Tree('-',None,f.left)]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
+	elif (tipo == "ALFA4"):
+		aux1 = [f.right]
+		aux2 = [Tree('-',None,f.left)]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
+	elif (tipo == "OMEGA1"):
+		aux1 = [Tree('-',None,f.right)]
+		aux2 = [Tree('-',None,f.left)]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
+		aux1 = [f.right]
+		aux2 = [f.left]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
+	elif (tipo == "OMEGA3"):
+		aux1 = [Tree('-',None,f.right)]
+		aux2 = [f.left]
+		listaHojas.remove(hoja)
+		listaHojas.append(aux1)
+		listaHojas.append(aux2)
 
 def Tableaux(f):
 
