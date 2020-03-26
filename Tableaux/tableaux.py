@@ -63,13 +63,30 @@ def par_complementario(l):
 	# contiene un par complementario
 	# Input: l, una lista de literales
 	# Output: True/False
-	return False
+    for i in l:
+        if i[0] == "-" :
+            for j in l:
+                if len(j)== 1 and i[1]== j:
+                    return True 
+    return False
+    
+
+	
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
 	# Input: f, una fórmula como árbol
 	# Output: True/False
-	return False
+    if f.right == None:
+        return True
+    elif f.label == "-" and f.right.label not in [">","-","Y","O"]:
+        return es_literal(f.right)
+    elif f.left != None:
+        return False 
+    else: return False 
+    
+ 
+        
 
 def no_literales(l):
 	# Esta función determina si una lista de fórmulas contiene
