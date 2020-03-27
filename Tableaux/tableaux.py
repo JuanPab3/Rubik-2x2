@@ -43,6 +43,30 @@ def StringtoTree(A):
 	p = letrasProposicionales[0] # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
 	return Tree(p, None, None) # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
 
+
+def string2Tree(A, letrasProposicionales):
+	# Crea una formula como tree dada una formula
+	# como cadena escrita en notacion polaca inversa
+	# Input: A, lista de caracteres con una formula escrita en notacion polaca inversa
+	#letrasProposicionales, lista de letras proposicionales
+	# Output: formula como tree
+	conectivos = ['O', 'Y', '>']
+	pila = []
+	for c in A:
+		if c in letrasProposicionales:
+			pila.append(Tree(c, None, None))
+		elif c == ’-’:
+			formulaAux = Tree(c, None, pila[-1])
+			del pila[-1]
+			pila.append(formulaAux)
+		elif c in conectivos:
+			formulaAux = Tree(c, pila[-1], pila[-2])
+			del pila[-1]
+			del pila[-1]
+			pila.append(formulaAux)
+		return pila[-1]
+
+
 ##############################################################################
 # Definición de funciones de tableaux
 ##############################################################################
