@@ -9,7 +9,7 @@ letrasProposicionales = [chr(x) for x in range(97, 123)]
 # inicializa la lista de interpretaciones
 listaInterpsVerdaderas = []
 # inicializa la lista de hojas
-global listaHojas = []
+listaHojas = []
 
 ##############################################################################
 # Definición de objeto tree y funciones de árboles
@@ -32,19 +32,7 @@ def Inorder(f):
 	else:
 		return "(" + Inorder(f.left) + f.label + Inorder(f.right) + ")"
 
-def StringtoTree(A):
-    # Crea una formula como tree dada una formula como cadena escrita en notacion polaca inversa
-    # Input: A, lista de caracteres con una formula escrita en notacion polaca inversa
-             # letrasProposicionales, lista de letras proposicionales
-    # Output: formula como tree
-
-	# OJO: DEBE INCLUIR SU CÓDIGO DE STRING2TREE EN ESTA PARTE!!!!!
-
-	p = letrasProposicionales[0] # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
-	return Tree(p, None, None) # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
-
-
-def string2Tree(A, letrasProposicionales):
+def StringtoTree(A, letrasProposicionales):
 	# Crea una formula como tree dada una formula
 	# como cadena escrita en notacion polaca inversa
 	# Input: A, lista de caracteres con una formula escrita en notacion polaca inversa
@@ -55,7 +43,7 @@ def string2Tree(A, letrasProposicionales):
 	for c in A:
 		if c in letrasProposicionales:
 			pila.append(Tree(c, None, None))
-		elif c == ’-’:
+		elif c == '-':
 			formulaAux = Tree(c, None, pila[-1])
 			del pila[-1]
 			pila.append(formulaAux)
@@ -82,20 +70,43 @@ def imprime_hoja(H):
 		cadena += Inorder(f)
 	return cadena + "}"
 
-def par_complementario(l):
+# def par_complementarioS(l):
+# 	# Esta función determina si una lista de solo literales
+# 	# contiene un par complementario
+# 	# Input: l, una lista de literales
+# 	# Output: True/False
+#     for i in l:
+#         if i[0] == "-" :
+#             for j in l:
+#                 if len(j)== 1 and i[1]== j:
+#                     return True
+#     return False
+
+def par_complementarioT(l):
 	# Esta función determina si una lista de solo literales
 	# contiene un par complementario
 	# Input: l, una lista de literales
 	# Output: True/False
     for i in l:
-        if i[0] == "-" :
-            for j in l:
-                if len(j)== 1 and i[1]== j:
-                    return True
+        if i.label == "-":
+            if (i.right.label in ["-","Y","O",">"]):
+                continue
+            else:
+                for j in l:
+                    if i.right.label == j.label:
+                        return True
     return False
 
-
-
+# TEST PAR_COMPLEMENTARIO CON TREES
+#
+# a = Tree('-',None,Tree("p",None,None))
+# b = Tree('-',None,Tree("p",None,None))
+#
+# c = [a,b]
+#
+# d = par_complementarioT(c)
+#
+# print("{} and {} --> {}".format(Inorder(a),Inorder(b),d))
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
@@ -119,11 +130,11 @@ def no_literales(l):
 	# Output: None/f, tal que f no es literal
 	return False
 
-def clasifica_y_extiende(hoja:list; f:Tree):
+def clasifica_y_extiende(hoja:list, f:Tree):
 	tipo = ""
-	listaHojas = []
+	# listaHojas = []
 	#===TIPO_ALFA===#
-		if (f.label == '-') and (f.right.label == '-'):
+	if (f.label == '-' and f.right.label == '-'):
 		tipo = "ALFA1"
 	elif (f.label == 'Y'):
 		tipo = "ALFA2"
@@ -185,8 +196,8 @@ def Tableaux(f):
 	# Imput: - f, una fórmula como string en notación polaca inversa
 	# Output: interpretaciones: lista de listas de literales que hacen
 	#		 verdadera a f
-	global listaHojas
-	global listaInterpsVerdaderas # acá se incluiran las hojas con 0
+	# listaHojas
+	# listaInterpsVerdaderas # acá se incluiran las hojas con 0
 
 	A = string2Tree(f)
 	listaHojas = [[A]]
