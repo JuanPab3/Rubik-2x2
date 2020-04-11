@@ -9,7 +9,7 @@ letrasProposicionales = [chr(x) for x in range(97, 123)]
 # inicializa la lista de interpretaciones
 listaInterpsVerdaderas = []
 # inicializa la lista de hojas
-global listaHojas = []
+listaHojas = []
 
 ##############################################################################
 # Definición de objeto tree y funciones de árboles
@@ -33,15 +33,21 @@ def Inorder(f):
 		return "(" + Inorder(f.left) + f.label + Inorder(f.right) + ")"
 
 def StringtoTree(A):
-    # Crea una formula como tree dada una formula como cadena escrita en notacion polaca inversa
-    # Input: A, lista de caracteres con una formula escrita en notacion polaca inversa
-             # letrasProposicionales, lista de letras proposicionales
-    # Output: formula como tree
-
-	# OJO: DEBE INCLUIR SU CÓDIGO DE STRING2TREE EN ESTA PARTE!!!!!
-
-	p = letrasProposicionales[0] # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
-	return Tree(p, None, None) # ELIMINE ESTA LINEA LUEGO DE INCLUIR EL CODIGO DE STRING2TREE
+	global letrasProposicionales
+	treelist=[]
+	for i in A:
+		if i in letrasProposicionales:
+			treelist.append(Tree(i,None, None))
+		elif i=="-":
+			faux=Tree(i,None,treelist[-1])
+			treelist.pop(-1)
+			treelist.append(faux)
+		elif i in ["O","Y",">"]:
+			faux=Tree(i,treelist[-1],treelist[-2])
+			treelist.pop(-1)
+			treelist.pop(-1)
+			treelist.append(faux)
+	return treelist[0]
 
 ##############################################################################
 # Definición de funciones de tableaux
@@ -64,14 +70,14 @@ def par_complementario(l):
 	# Input: l, una lista de literales
 	# Output: True/False
     for i in l:
-        if i[0] == "-" :
-            for j in l:
-                if len(j)== 1 and i[1]== j:
-                    return True
+        if i.label == "-":
+            if i.right.label in ["-","Y","O",">"]:
+                continue
+            else:
+                for j in l:
+                    if i.right.label == j.label:
+                        return True
     return False
-
-
-
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
@@ -85,75 +91,126 @@ def es_literal(f):
         return False
     else: return False
 
-
-
-
 def no_literales(l):
 	# Esta función determina si una lista de fórmulas contiene
 	# solo literales
 	# Input: l, una lista de fórmulas como árboles
 	# Output: None/f, tal que f no es literal
-	return False
+	for i in l:
+		#revisa si la formula i de la lista l es literal
+		if es_literal(i):
+			continue
+		# si i no es literal, la retorna y termina la funcion
+		else:
+			return i
+	# Cuando i no es literal para todo i en l, retorna None
+	return None
 
-def clasifica_y_extiende(hoja:list; f:Tree):
+
+def clasifica_y_extiende(hoja, f):
+
+	global listaHojas
+
 	tipo = ""
-	listaHojas = []
 	#===TIPO_ALFA===#
-		if (f.label == '-') and (f.right.label == '-'):
+	if (f.label == '-') and (f.right.label == '-'):
 		tipo = "ALFA1"
+
 	elif (f.label == 'Y'):
 		tipo = "ALFA2"
+
 	elif (f.label == '-') and (f.right.label == 'O'):
 		tipo = "ALFA3"
+
 	elif (f.label == '-') and (f.right.label == '>'):
 		tipo = "ALFA4"
-	#===TIPO_OMEGA===#
+
+	#===TIPO_BETA===#
 	elif (f.label == '-') and (f.right.label == 'Y'):
-		tipo = "OMEGA1"
+		tipo = "BETA1"
+
 	elif (f.label == 'O'):
-		tipo = "OMEGA2"
+		tipo = "BETA2"
+
 	elif (f.label == '>'):
-		tipo = "OMEGA3"
+		tipo = "BETA3"
+
 	#===CONVERSIÓN===#
-	if   (tipo == "ALFA1"):
-		aux1 = [f.right]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
+	# Alfa
+	if (tipo == "ALFA1"):
+		A1 = f.right.right
+
+		hoja.remove(f)
+
+		hoja.append(A1)
+		# print("ALFA1", (Inorder(i) for i in hoja))
+
 	elif (tipo == "ALFA2"):
-		aux1 = [f.right]
-		aux2 = [f.left]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
+		A1 = f.left
+		A2 = f.right
+		print("\nlistaHojas antes de Alfa2 = ")
+
+		hoja.remove(f)
+
+		hoja.append(A1)
+		hoja.append(A2)
+		# print("ALFA2", (Inorder(i) for i in hoja))
+
 	elif (tipo == "ALFA3"):
-		aux1 = [Tree('-',None,f.right)]
-		aux2 = [Tree('-',None,f.left)]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
+		nA1 = Tree("-", None, f.right.left)
+		nA2 = Tree("-", None, f.right.right)
+
+		hoja.remove(f)
+
+		hoja.append(nA1)
+		hoja.append(nA2)
+		# print("ALFA3", (Inorder(i) for i in hoja))
+
 	elif (tipo == "ALFA4"):
-		aux1 = [f.right]
-		aux2 = [Tree('-',None,f.left)]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
-	elif (tipo == "OMEGA1"):
-		aux1 = [Tree('-',None,f.right)]
-		aux2 = [Tree('-',None,f.left)]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
-		aux1 = [f.right]
-		aux2 = [f.left]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
-	elif (tipo == "OMEGA3"):
-		aux1 = [Tree('-',None,f.right)]
-		aux2 = [f.left]
-		listaHojas.remove(hoja)
-		listaHojas.append(aux1)
-		listaHojas.append(aux2)
+		A1 = f.right.left
+		nA2 = Tree("-", None, f.right.right)
+
+		hoja.remove(f)
+
+		hoja.append(A1)
+		hoja.append(nA2)
+
+	# Beta
+	elif (tipo == "BETA1"):
+		nB1 = Tree("-", None, f.right.left)
+		nB2 = Tree("-", None, f.right.right)
+
+		hoja.remove(f)
+		h_aux = [f for f in hoja]
+
+		hoja.append(nB1)
+		h_aux.append(nB2)
+
+		listaHojas.append(h_aux)
+
+	elif (tipo == "BETA2"):
+		B1 = f.left
+		B2 = f.right
+
+		hoja.remove(f)
+		h_aux = [f for f in hoja]
+
+		hoja.append(B1)
+		h_aux.append(B2)
+
+		listaHojas.append(h_aux)
+
+	elif (tipo == "BETA3"):
+		nB1 = Tree("-", None, f.left)
+		B2 = f.right
+
+		hoja.remove(f)
+		h_aux = [f for f in hoja]
+
+		hoja.append(nB1)
+		h_aux.append(B2)
+
+		listaHojas.append(h_aux)
 
 def Tableaux(f):
 	# Algoritmo de creacion de tableau a partir de lista_hojas
@@ -164,20 +221,25 @@ def Tableaux(f):
 	global listaHojas
 	global listaInterpsVerdaderas # acá se incluiran las hojas con 0
 
-	A = string2Tree(f)
+	A = StringtoTree(f)
+	print("la fórmula ingresada es: ", Inorder(A))
+	
 	listaHojas = [[A]]
 
 	while (len(listaHojas)>0):
 		hoja = listaHojas[0]
 		f = no_literales(hoja)
-		# f == none si hojas solo contiene literales
-		if f == none:
+		# f == none si hoja solo contiene literales
+		if f == None:
+			# si hoja contiene un par complementario es removida de listaHojas
 			if par_complementario(hoja):
 				listaHojas.remove(hoja)
+			# si hoja no contiene ningun par complementario, la añadimos a
+			# listaInterpsVerdaderas y la removemos de listaHojas
 			else:
 				listaInterpsVerdaderas.append(hoja)
 				listaHojas.remove(hoja)
 		else:
-			clasifica_y_extiende(f)
+			clasifica_y_extiende(hoja, f)
 
 	return listaInterpsVerdaderas
