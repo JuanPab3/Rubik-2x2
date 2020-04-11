@@ -43,7 +43,7 @@ def StringtoTree(A):
 			treelist.pop(-1)
 			treelist.append(faux)
 		elif i in ["O","Y",">"]:
-			faux=Tree(i,treelist[-1],treelist[-2])
+			faux=Tree(i,treelist[-2],treelist[-1])
 			treelist.pop(-1)
 			treelist.pop(-1)
 			treelist.append(faux)
@@ -148,7 +148,6 @@ def clasifica_y_extiende(hoja, f):
 	elif (tipo == "ALFA2"):
 		A1 = f.left
 		A2 = f.right
-		print("\nlistaHojas antes de Alfa2 = ")
 
 		hoja.remove(f)
 
@@ -223,7 +222,7 @@ def Tableaux(f):
 
 	A = StringtoTree(f)
 	print("la fórmula ingresada es: ", Inorder(A))
-	
+
 	listaHojas = [[A]]
 
 	while (len(listaHojas)>0):
