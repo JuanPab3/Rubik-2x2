@@ -107,6 +107,18 @@ def C(t):
     elif t.label in t.binaryConectives:
         return 1 + C(t.left) + C(t.right)
 
+# negations in f
+def num_neg(f):
+    if f.right == None:
+        return 0
+    elif f.label == "-":
+        return 1 + num_neg(f.right)
+    elif f.label in f.binaryConectives:
+        return num_neg(f.left) + num_neg(f.right)
+
+def W(f):
+    return (3 * C(f)) + num_neg(f)
+
 # Value of an interpretation i in a form. t
 def VI(t, i):
     if t.right == None:
