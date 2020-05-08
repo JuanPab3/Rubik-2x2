@@ -1,21 +1,23 @@
 #================================ASPECTOS_TECNICOS==============================
 from codificacion import codifica3 as cod3
 from codificacion import decodifica3 as deco3
+import FNC as fn
 
 lC= []  #Lista de Caracteres
-
-# Ncuadros = 24   #Número de Cuadros
-# Ncolores = 6    #Número de Colores
-# Nturnos  = 14   #Número de Turnos
 
 Ncuadros = 24   #Número de Cuadros
 Ncolores = 6    #Número de Colores
 Nturnos  = 14   #Número de Turnos
 
+max = 0
+
 for i in range(1,Ncuadros+1):
     for j in range(1,Ncolores+1):
         for k in range(1,Nturnos+1):
-            n = chr(255+cod3(i,j,k,Ncuadros+1,Ncolores+1,Nturnos+1))
+            cod_num = cod3(i,j,k,Ncuadros+1,Ncolores+1,Nturnos+1)
+            if (cod_num > max):
+                max = cod_num
+            n = chr(255+cod_num)
             lC.append(n)
             cud,col,tur = deco3(ord(n)- 255,Ncuadros+1,Ncolores+1,Nturnos+1)
             #  print("(X{}-Y{}-Z{}) -> {}".format(i,j,k,n))
@@ -84,6 +86,7 @@ def regla2():
             b10 = Beta(23,j,k,9)
             b11 = Beta(6,j,k,24)
             b12 = Beta(5,j,k,23)
+
             b13 = Beta(7,j,k,7)
             b14 = Beta(8,j,k,8)
             b15 = Beta(3,j,k,3)
@@ -110,7 +113,40 @@ def regla3():
     str
 
     """
-    pass
+    Ui = "("
+    for k in range(1,Nturnos):
+        Ui += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(15,j,k,16)
+            b2 = Beta(13,j,k,15)
+            b3 = Beta(14,j,k,13)
+            b4 = Beta(16,j,k,14)
+            b5 = Beta(6,j,k,2)
+            b6 = Beta(5,j,k,1)
+            b7 = Beta(2,j,k,10)
+            b8 = Beta(1,j,k,9)
+            b9 = Beta(10,j,k,24)
+            b10 = Beta(9,j,k,23)
+            b11 = Beta(24,j,k,6)
+            b12 = Beta(23,j,k,5)
+
+            b13 = Beta(7,j,k,7)
+            b14 = Beta(8,j,k,8)
+            b15 = Beta(3,j,k,3)
+            b16 = Beta(4,j,k,4)
+            b17 = Beta(11,j,k,11)
+            b18 = Beta(12,j,k,12)
+            b19 = Beta(17,j,k,17)
+            b20 = Beta(18,j,k,18)
+            b21 = Beta(19,j,k,19)
+            b22 = Beta(20,j,k,20)
+            b23 = Beta(21,j,k,21)
+            b24 = Beta(22,j,k,22)
+            Ui += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Ui += ")O"
+    Ui = Ui[0:-1]
+    Ui += ")"
+    return Ui
 
 def regla4():
     """Movimiento tipo F (Front).
@@ -120,7 +156,40 @@ def regla4():
     str
 
     """
-    pass
+    Fn = "("
+    for k in range(1,Nturnos):
+        Fn += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(1,j,k,2)
+            b2 = Beta(2,j,k,4)
+            b3 = Beta(4,j,k,3)
+            b4 = Beta(3,j,k,1)
+            b5 = Beta(9,j,k,18)
+            b6 = Beta(11,j,k,17)
+            b7 = Beta(18,j,k,8)
+            b8 = Beta(17,j,k,6)
+            b9 = Beta(8,j,k,15)
+            b10 = Beta(6,j,k,16)
+            b11 = Beta(15,j,k,9)
+            b12 = Beta(16,j,k,11)
+
+            b13 = Beta(5,j,k,5)
+            b14 = Beta(7,j,k,7)
+            b15 = Beta(10,j,k,10)
+            b16 = Beta(12,j,k,12)
+            b17 = Beta(13,j,k,13)
+            b18 = Beta(14,j,k,14)
+            b19 = Beta(19,j,k,19)
+            b20 = Beta(20,j,k,20)
+            b21 = Beta(21,j,k,21)
+            b22 = Beta(22,j,k,22)
+            b23 = Beta(23,j,k,23)
+            b24 = Beta(24,j,k,24)
+            Fn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Fn += ")O"
+    Fn = Fn[0:-1]
+    Fn += ")"
+    return Fn
 
 def regla5():
     """Movimiento tipo F’ (Front Inverted).
@@ -130,7 +199,40 @@ def regla5():
     str
 
     """
-    pass
+    Fi = "("
+    for k in range(1,Nturnos):
+        Fi += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(2,j,k,1)
+            b2 = Beta(4,j,k,2)
+            b3 = Beta(3,j,k,4)
+            b4 = Beta(1,j,k,3)
+            b5 = Beta(18,j,k,9)
+            b6 = Beta(17,j,k,11)
+            b7 = Beta(8,j,k,18)
+            b8 = Beta(6,j,k,17)
+            b9 = Beta(15,j,k,8)
+            b10 = Beta(16,j,k,6)
+            b11 = Beta(9,j,k,15)
+            b12 = Beta(11,j,k,16)
+
+            b13 = Beta(5,j,k,5)
+            b14 = Beta(7,j,k,7)
+            b15 = Beta(10,j,k,10)
+            b16 = Beta(12,j,k,12)
+            b17 = Beta(13,j,k,13)
+            b18 = Beta(14,j,k,14)
+            b19 = Beta(19,j,k,19)
+            b20 = Beta(20,j,k,20)
+            b21 = Beta(21,j,k,21)
+            b22 = Beta(22,j,k,22)
+            b23 = Beta(23,j,k,23)
+            b24 = Beta(24,j,k,24)
+            Fi += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Fi += ")O"
+    Fi = Fi[0:-1]
+    Fi += ")"
+    return Fi
 
 def regla6():
     """MMovimiento tipo D (Down).
@@ -140,7 +242,40 @@ def regla6():
     str
 
     """
-    pass
+    Dn = "("
+    for k in range(1,Nturnos):
+        Dn += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(17,j,k,18)
+            b2 = Beta(18,j,k,20)
+            b3 = Beta(20,j,k,19)
+            b4 = Beta(19,j,k,17)
+            b5 = Beta(21,j,k,7)
+            b6 = Beta(22,j,k,8)
+            b7 = Beta(7,j,k,3)
+            b8 = Beta(8,j,k,4)
+            b9 = Beta(3,j,k,11)
+            b10 = Beta(4,j,k,12)
+            b11 = Beta(11,j,k,21)
+            b12 = Beta(12,j,k,22)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(2,j,k,2)
+            b15 = Beta(5,j,k,5)
+            b16 = Beta(6,j,k,6)
+            b17 = Beta(9,j,k,9)
+            b18 = Beta(10,j,k,10)
+            b19 = Beta(13,j,k,13)
+            b20 = Beta(14,j,k,14)
+            b21 = Beta(15,j,k,15)
+            b22 = Beta(16,j,k,16)
+            b23 = Beta(23,j,k,23)
+            b24 = Beta(24,j,k,24)
+            Dn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Dn += ")O"
+    Dn = Dn[0:-1]
+    Dn += ")"
+    return Dn
 
 def regla7():
     """Movimiento tipo D’ (Down Inverted).
@@ -150,7 +285,40 @@ def regla7():
     str
 
     """
-    pass
+    Di = "("
+    for k in range(1,Nturnos):
+        Di += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(18,j,k,17)
+            b2 = Beta(20,j,k,18)
+            b3 = Beta(19,j,k,20)
+            b4 = Beta(17,j,k,19)
+            b5 = Beta(7,j,k,21)
+            b6 = Beta(8,j,k,22)
+            b7 = Beta(3,j,k,7)
+            b8 = Beta(4,j,k,8)
+            b9 = Beta(11,j,k,3)
+            b10 = Beta(12,j,k,4)
+            b11 = Beta(21,j,k,11)
+            b12 = Beta(22,j,k,12)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(2,j,k,2)
+            b15 = Beta(5,j,k,5)
+            b16 = Beta(6,j,k,6)
+            b17 = Beta(9,j,k,9)
+            b18 = Beta(10,j,k,10)
+            b19 = Beta(13,j,k,13)
+            b20 = Beta(14,j,k,14)
+            b21 = Beta(15,j,k,15)
+            b22 = Beta(16,j,k,16)
+            b23 = Beta(23,j,k,23)
+            b24 = Beta(24,j,k,24)
+            Di += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Di += ")O"
+    Di = Di[0:-1]
+    Di += ")"
+    return Di
 
 def regla8():
     """Movimiento tipo B (Back).
@@ -160,7 +328,40 @@ def regla8():
     str
 
     """
-    pass
+    Bn = "("
+    for k in range(1,Nturnos):
+        Bn += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(22,j,k,24)
+            b2 = Beta(24,j,k,23)
+            b3 = Beta(23,j,k,21)
+            b4 = Beta(21,j,k,22)
+            b5 = Beta(10,j,k,13)
+            b6 = Beta(12,j,k,14)
+            b7 = Beta(13,j,k,7)
+            b8 = Beta(14,j,k,5)
+            b9 = Beta(5,j,k,19)
+            b10 = Beta(7,j,k,20)
+            b11 = Beta(19,j,k,12)
+            b12 = Beta(20,j,k,10)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(2,j,k,2)
+            b15 = Beta(3,j,k,3)
+            b16 = Beta(4,j,k,4)
+            b17 = Beta(6,j,k,6)
+            b18 = Beta(8,j,k,8)
+            b19 = Beta(9,j,k,9)
+            b20 = Beta(11,j,k,11)
+            b21 = Beta(15,j,k,15)
+            b22 = Beta(16,j,k,16)
+            b23 = Beta(17,j,k,17)
+            b24 = Beta(18,j,k,18)
+            Bn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Bn += ")O"
+    Bn = Bn[0:-1]
+    Bn += ")"
+    return Bn
 
 def regla9():
     """Movimiento tipo B’ (Back Inverted).
@@ -170,7 +371,40 @@ def regla9():
     str
 
     """
-    pass
+    Bi = "("
+    for k in range(1,Nturnos):
+        Bi += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(24,j,k,22)
+            b2 = Beta(23,j,k,24)
+            b3 = Beta(21,j,k,23)
+            b4 = Beta(22,j,k,21)
+            b5 = Beta(13,j,k,10)
+            b6 = Beta(14,j,k,12)
+            b7 = Beta(7,j,k,13)
+            b8 = Beta(5,j,k,14)
+            b9 = Beta(19,j,k,5)
+            b10 = Beta(20,j,k,7)
+            b11 = Beta(12,j,k,19)
+            b12 = Beta(10,j,k,20)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(2,j,k,2)
+            b15 = Beta(3,j,k,3)
+            b16 = Beta(4,j,k,4)
+            b17 = Beta(6,j,k,6)
+            b18 = Beta(8,j,k,8)
+            b19 = Beta(9,j,k,9)
+            b20 = Beta(11,j,k,11)
+            b21 = Beta(15,j,k,15)
+            b22 = Beta(16,j,k,16)
+            b23 = Beta(17,j,k,17)
+            b24 = Beta(18,j,k,18)
+            Bi += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Bi += ")O"
+    Bi = Bi[0:-1]
+    Bi += ")"
+    return Bi
 
 def regla10():
     """Movimiento tipo R (Right).
@@ -180,7 +414,40 @@ def regla10():
     str
 
     """
-    pass
+    Un = "("
+    for k in range(1,Nturnos):
+        Un += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(9,j,k,10)
+            b2 = Beta(10,j,k,12)
+            b3 = Beta(12,j,k,11)
+            b4 = Beta(11,j,k,9)
+            b5 = Beta(24,j,k,20)
+            b6 = Beta(22,j,k,18)
+            b7 = Beta(20,j,k,4)
+            b8 = Beta(18,j,k,2)
+            b9 = Beta(4,j,k,16)
+            b10 = Beta(2,j,k,14)
+            b11 = Beta(16,j,k,24)
+            b12 = Beta(14,j,k,22)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(3,j,k,3)
+            b15 = Beta(5,j,k,5)
+            b16 = Beta(6,j,k,6)
+            b17 = Beta(7,j,k,7)
+            b18 = Beta(8,j,k,8)
+            b19 = Beta(13,j,k,13)
+            b20 = Beta(15,j,k,15)
+            b21 = Beta(17,j,k,17)
+            b22 = Beta(19,j,k,19)
+            b23 = Beta(21,j,k,21)
+            b24 = Beta(23,j,k,23)
+            Un += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Un += ")O"
+    Un = Un[0:-1]
+    Un += ")"
+    return Un
 
 def regla11():
     """Movimiento tipo R’ (Right Inverted).
@@ -190,7 +457,40 @@ def regla11():
     str
 
     """
-    pass
+    Ri = "("
+    for k in range(1,Nturnos):
+        Ri += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(10,j,k,9)
+            b2 = Beta(12,j,k,10)
+            b3 = Beta(11,j,k,12)
+            b4 = Beta(9,j,k,11)
+            b5 = Beta(20,j,k,24)
+            b6 = Beta(18,j,k,22)
+            b7 = Beta(4,j,k,20)
+            b8 = Beta(2,j,k,18)
+            b9 = Beta(16,j,k,4)
+            b10 = Beta(14,j,k,2)
+            b11 = Beta(24,j,k,16)
+            b12 = Beta(22,j,k,14)
+
+            b13 = Beta(1,j,k,1)
+            b14 = Beta(3,j,k,3)
+            b15 = Beta(5,j,k,5)
+            b16 = Beta(6,j,k,6)
+            b17 = Beta(7,j,k,7)
+            b18 = Beta(8,j,k,8)
+            b19 = Beta(13,j,k,13)
+            b20 = Beta(15,j,k,15)
+            b21 = Beta(17,j,k,17)
+            b22 = Beta(19,j,k,19)
+            b23 = Beta(21,j,k,21)
+            b24 = Beta(23,j,k,23)
+            Ri += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Ri += ")O"
+    Ri = Ri[0:-1]
+    Ri += ")"
+    return Ri
 
 def regla12():
     """Movimiento tipo L (Left).
@@ -200,7 +500,40 @@ def regla12():
     str
 
     """
-    pass
+    Ln = "("
+    for k in range(1,Nturnos):
+        Ln += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(5,j,k,6)
+            b2 = Beta(6,j,k,8)
+            b3 = Beta(8,j,k,7)
+            b4 = Beta(7,j,k,5)
+            b5 = Beta(1,j,k,17)
+            b6 = Beta(3,j,k,19)
+            b7 = Beta(17,j,k,21)
+            b8 = Beta(19,j,k,23)
+            b9 = Beta(21,j,k,13)
+            b10 = Beta(23,j,k,15)
+            b11 = Beta(13,j,k,1)
+            b12 = Beta(15,j,k,3)
+
+            b13 = Beta(2,j,k,2)
+            b14 = Beta(4,j,k,4)
+            b15 = Beta(9,j,k,9)
+            b16 = Beta(10,j,k,10)
+            b17 = Beta(11,j,k,11)
+            b18 = Beta(12,j,k,12)
+            b19 = Beta(14,j,k,14)
+            b20 = Beta(16,j,k,16)
+            b21 = Beta(18,j,k,18)
+            b22 = Beta(20,j,k,20)
+            b23 = Beta(22,j,k,22)
+            b24 = Beta(24,j,k,24)
+            Ln += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Ln += ")O"
+    Ln = Ln[0:-1]
+    Ln += ")"
+    return Ln
 
 def regla13():
     """Movimiento tipo L’ (Left Inverted) .
@@ -210,7 +543,40 @@ def regla13():
     str
 
     """
-    pass
+    Li = "("
+    for k in range(1,Nturnos):
+        Li += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(6,j,k,5)
+            b2 = Beta(8,j,k,6)
+            b3 = Beta(7,j,k,8)
+            b4 = Beta(5,j,k,7)
+            b5 = Beta(17,j,k,1)
+            b6 = Beta(19,j,k,3)
+            b7 = Beta(21,j,k,17)
+            b8 = Beta(23,j,k,19)
+            b9 = Beta(13,j,k,21)
+            b10 = Beta(15,j,k,23)
+            b11 = Beta(1,j,k,13)
+            b12 = Beta(3,j,k,15)
+
+            b13 = Beta(2,j,k,2)
+            b14 = Beta(4,j,k,4)
+            b15 = Beta(9,j,k,9)
+            b16 = Beta(10,j,k,10)
+            b17 = Beta(11,j,k,11)
+            b18 = Beta(12,j,k,12)
+            b19 = Beta(14,j,k,14)
+            b20 = Beta(16,j,k,16)
+            b21 = Beta(18,j,k,18)
+            b22 = Beta(20,j,k,20)
+            b23 = Beta(22,j,k,22)
+            b24 = Beta(24,j,k,24)
+            Li += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Li += ")O"
+    Li = Li[0:-1]
+    Li += ")"
+    return Li
 
 def regla14():
     """Movimiento tipo N (Not move).
@@ -220,7 +586,40 @@ def regla14():
     str
 
     """
-    pass
+    N = "("
+    for k in range(1,Nturnos):
+        N += "("
+        for j in range(1,Ncolores+1):
+            b1 = Beta(1,j,k,1)
+            b2 = Beta(2,j,k,2)
+            b3 = Beta(3,j,k,3)
+            b4 = Beta(4,j,k,4)
+            b5 = Beta(5,j,k,5)
+            b6 = Beta(6,j,k,6)
+            b7 = Beta(7,j,k,7)
+            b8 = Beta(8,j,k,8)
+            b9 = Beta(9,j,k,9)
+            b10 = Beta(10,j,k,10)
+            b11 = Beta(11,j,k,11)
+            b12 = Beta(12,j,k,12)
+
+            b13 = Beta(13,j,k,13)
+            b14 = Beta(14,j,k,14)
+            b15 = Beta(15,j,k,15)
+            b16 = Beta(16,j,k,16)
+            b17 = Beta(17,j,k,17)
+            b18 = Beta(18,j,k,18)
+            b19 = Beta(19,j,k,19)
+            b20 = Beta(20,j,k,20)
+            b21 = Beta(21,j,k,21)
+            b22 = Beta(22,j,k,22)
+            b23 = Beta(23,j,k,23)
+            b24 = Beta(24,j,k,24)
+            N += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        N += ")O"
+    N = N[0:-1]
+    N += ")"
+    return N
 
 def regla15():
     """Solo puede haber un movimiento por turno.
@@ -259,5 +658,15 @@ def regla17():
 
 #====================================CODIGO=====================================
 
-print(regla2())
-print(len(regla2()))
+formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
+
+fFNC = fn.Tseitin(formula, lC)
+
+print(len(fFNC))
+print(fFNC)
+
+
+# Se obtiene la forma clausal como lista de listas de literales
+fClaus = fn.formaClausal(fFNC)
+print(fClaus)
+print(len(fClaus))
