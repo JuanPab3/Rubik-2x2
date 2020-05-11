@@ -29,7 +29,8 @@ def Tseitin(A, letrasProposicionalesA):
     letrasProposicionalesB = [chr(x) for x in range(256+100000,256+100000*2)]
     # letrasProposicionalesB = ['A', 'B', 'C', 'D', 'E', 'F']
     assert(not bool(set(letrasProposicionalesA) & set(letrasProposicionalesB))), u"¡Hay letras proposicionales en común!"
-
+    assert("Y" not in letrasProposicionalesA),"existe una Y en Letras A"
+    assert("Y" not in letrasProposicionalesB),"existe una Y en Letras B"
     L=[]
     Pila=[]
     I=-1
@@ -49,6 +50,8 @@ def Tseitin(A, letrasProposicionalesA):
             w=Pila[-1]
             u=Pila[-2]
             v=Pila[-3]
+            print("esta es W",w,"esta es V",v)
+            assert((w!="Y") and(v!="Y")),"se encontró una Y"
             Pila=Pila[:len(Pila)-4]
             I+=1
             Atomo=letrasProposicionalesB[I]
@@ -68,6 +71,7 @@ def Tseitin(A, letrasProposicionalesA):
 
     for x in L:
         y=enFNC(x)
+        print("this ",y, "and X:", x)
         B+="Y"+y
 
     B = Atomo+B
@@ -78,6 +82,7 @@ def Clausula(C):
     while len(C)>0:
         s=C[0]
         if s=="-":
+#            print(s,"  ", C)
             L.append(s+C[1])
             C=C[3:]
         else:
@@ -97,6 +102,7 @@ def formaClausal(A):
             A=[]
         else:
             if A[i]=="Y":
+#                print(A)
                 L.append(Clausula(A[:i]))
                 A=A[i+1:]
                 i=0

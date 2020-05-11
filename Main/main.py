@@ -7,7 +7,7 @@ lC= []  #Lista de Caracteres
 
 Ncuadros = 24   #Número de Cuadros
 Ncolores = 6    #Número de Colores
-Nturnos  = 14   #Número de Turnos
+Nturnos  = 2   #Número de Turnos
 
 max = 0
 
@@ -51,6 +51,37 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
 
     return reg
 
+def Upsilon(m, T):
+    list_y = "("
+    string = ""
+    count=1
+    if(T==1):t=1
+    elif(T==2):t=5
+    elif(T==3):t=9
+    elif(T==4):t=13
+    elif(T==5):t=17
+    elif(T==6):t=21
+    
+#    assert((6<T) or (1>T)),"la notación Upsilon solo acepta un intervalo entre 1 y 6"
+    for i in range(t,t+4):
+        for j in range(1,7):
+            Y = chr(255 + cod3(i,j,m,Ncuadros+1,Ncolores+1,Nturnos+1))
+            string += Y 
+    for nch in range(1,len(string)+1):
+
+        if(count<4):
+            list_y += "{}Y".format(string[nch-1])
+
+            count+=1
+        elif(count==4):
+            list_y += "{})O(".format(string[nch-1])
+            count =1
+
+    list_y = list_y[:len(list_y)-2]
+           
+    return list_y
+
+
 
 def regla1():
     """Ningun cuadro puede tener mas de un color.
@@ -59,9 +90,22 @@ def regla1():
     -------
     str
 
-    """
-    pass
-
+    """ 
+    string= ""
+    fin="("
+    for N in range(1,Nturnos+1):
+        for s in range(1,25):
+            for c in range(1,7):
+                Y = chr(255 + cod3(s,c,N,Ncuadros+1,Ncolores+1,Nturnos+1))
+                string += Y
+    for i in range(144):
+        k =i*6
+        fin += "({}>-({}O{}O{}O{}O{}))Y".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5])
+#        print(deco3(ord(string[k])- 255,Ncuadros+1,Ncolores+1,Nturnos+1)," > -  ",deco3(ord(string[k+5])- 255,Ncuadros+1,Ncolores+1,Nturnos+1))
+        
+    fin=fin[:len(fin)-1]
+    fin+=")"        
+    return fin
 def regla2():
     """Movimiento tipo U (Up).
 
@@ -430,7 +474,7 @@ def regla10():
             b10 = Beta(2,j,k,14)
             b11 = Beta(16,j,k,24)
             b12 = Beta(14,j,k,22)
-
+            
             b13 = Beta(1,j,k,1)
             b14 = Beta(3,j,k,3)
             b15 = Beta(5,j,k,5)
@@ -629,7 +673,24 @@ def regla15():
     str
 
     """
-    pass
+    string = "("
+    reglas = [regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14()]
+    largo = len(reglas)
+    for i in range(largo):
+        regla = reglas.pop()
+        cons = ""
+        for j in reglas:
+            cons+= j + "O"
+        cons = cons[:len(cons)-1]
+        string += "(({}>-({}))O la siguiente regla ".format(regla,cons )
+        reglas.insert(0, regla)
+        cons=""
+        
+    string= string[:len(string)-1]
+    return string
+    
+    
+    
 
 def regla16(Nturnos:int):
     """Cubo solucionado en el turnon.
@@ -642,7 +703,21 @@ def regla16(Nturnos:int):
     str
 
     """
-    pass
+    string ="("
+    for n in range(1,Nturnos+1):
+        for S in range(1,7):
+                string +="(" + Upsilon(n,S) + ")"
+                if(S != 6):
+                    string += "Y"
+                else:
+                    continue
+        if(n!=Nturnos):
+            string +="O"
+        else:continue
+    
+    string += ")"
+#    string = string[:len(string)-5]
+    return string
 
 def regla17():
     """Integridad del cubo terminado.
@@ -652,21 +727,23 @@ def regla17():
     str
 
     """
+    
     pass
 
 
 
 #====================================CODIGO=====================================
 
-formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
-
+#formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
+formula  = regla2()
 fFNC = fn.Tseitin(formula, lC)
 
-print(len(fFNC))
+#print(len(fFNC))
 print(fFNC)
 
 
 # Se obtiene la forma clausal como lista de listas de literales
 fClaus = fn.formaClausal(fFNC)
-print(fClaus)
-print(len(fClaus))
+#print(fClaus)
+#print(len(fClaus))
+#print(regla7())
