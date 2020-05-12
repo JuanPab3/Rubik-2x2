@@ -146,7 +146,7 @@ def setCube(listaR,listaC):
     for i in range(0,24):
         listaR[i].setColor(listaC[i])
 
-#====================================CODIGO=====================================
+#===============================ESTRUCTURA_CUBO================================
 
 #Todos los cuadros iniciaron de color blanco
 
@@ -186,8 +186,7 @@ s24 = Square(pex+60,430+pey,0)
 #Lista compuesta por todos los cuadrados que conforman el cubo.
 cube = [s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24]
 
-# Desde la linea 192 hasta la linea 220 se esta procesando una simulación de
-# cuatro posiciones posibles del cubo.
+#==================================SIMULACIÓN==================================
 
 nc1 = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5] # Estado Inicial
 nc2 = [0,0,0,0,1,4,1,4,3,2,3,2,3,3,1,1,2,2,4,4,5,5,5,5] # Front
@@ -216,64 +215,71 @@ for i in range(0,24):
     T = TurnDic(i+1,nc1[i]+1,4)
     Juego.append(T)
 
+#===============================================================================
+
 
 pasos =  creador_turnos(Juego)#Turnos
 
-run = True
-turno = 0
 
-setCube(cube,pasos[turno])  #Se deja el cubo en Estado Inicial
+def RUBIC(pasos:list):
 
-font1 = pg.font.SysFont("VT323",24,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
-font2 = pg.font.SysFont("VT323",70,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
+    run = True
+    turno = 0
+    setCube(cube,pasos[turno])  #Se deja el cubo en Estado Inicial
 
-
-while  run:
-
-    pg.time.delay(120) # Tiempo en ms para entre frames
-
-    for event in pg.event.get():
-        if event.type == pg.QUIT: # Salir del loop
-            run = False;
-
-    win.fill((0,0,0)) # Redefinición del espacio
-
-    keys = pg.key.get_pressed()
-
-    if keys[pg.K_RIGHT]:
-        turno = turno + 1
-        if (turno >= len(pasos)):
-            turno -= 1
-
-    if keys[pg.K_LEFT]:
-        turno = turno - 1
-        if (turno < 0):
-            turno += 1
-
-    if keys[pg.K_DOWN]:
-        turno = 0
-
-    if keys[pg.K_UP]:
-        turno = len(pasos) - 1
-
-    setCube(cube,pasos[turno])
-
-    texta = font2.render("Rubik 2x2",True, (255,255,255)) # Render del texto en la pantalla
-    text = font2.render("Turno {}".format(1+turno),True, (255,255,255)) # Render del texto en la pantalla
-
-    pxa = x/2 - (texta.get_size()[0]/7)*4
-    pya = y/2 + texta.get_size()[1]*2.5
-
-    pxb = x/2 - (texta.get_size()[0]/7)*3.2
-    pyb = y/2 + texta.get_size()[1]*3.5
-
-    win.blit(texta,(pxa,pya))
-    win.blit(text,(pxb,pyb))
-
-    for i in cube:
-        pg.draw.rect(win,i.color,(i.x,i.y,i.width,i.height))
-
-    pg.display.update() # volver a cargar los datos para el nuevo frame
+    font1 = pg.font.SysFont("VT323",24,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
+    font2 = pg.font.SysFont("VT323",70,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
 
 
-pg.quit() # Cerrar Pestaña
+    while  run:
+
+        pg.time.delay(120) # Tiempo en ms para entre frames
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT: # Salir del loop
+                run = False;
+
+        win.fill((0,0,0)) # Redefinición del espacio
+
+        keys = pg.key.get_pressed()
+
+        if keys[pg.K_RIGHT]:
+            turno = turno + 1
+            if (turno >= len(pasos)):
+                turno -= 1
+
+        if keys[pg.K_LEFT]:
+            turno = turno - 1
+            if (turno < 0):
+                turno += 1
+
+        if keys[pg.K_DOWN]:
+            turno = 0
+
+        if keys[pg.K_UP]:
+            turno = len(pasos) - 1
+
+        setCube(cube,pasos[turno])
+
+        texta = font2.render("Rubik 2x2",True, (255,255,255)) # Render del texto en la pantalla
+        text = font2.render("Turno {}".format(1+turno),True, (255,255,255)) # Render del texto en la pantalla
+
+        pxa = x/2 - (texta.get_size()[0]/7)*4
+        pya = y/2 + texta.get_size()[1]*2.5
+
+        pxb = x/2 - (texta.get_size()[0]/7)*3.2
+        pyb = y/2 + texta.get_size()[1]*3.5
+
+        win.blit(texta,(pxa,pya))
+        win.blit(text,(pxb,pyb))
+
+        for i in cube:
+            pg.draw.rect(win,i.color,(i.x,i.y,i.width,i.height))
+
+        pg.display.update() # volver a cargar los datos para el nuevo frame
+
+
+    pg.quit() # Cerrar Pestaña
+
+
+RUBIC(pasos)
