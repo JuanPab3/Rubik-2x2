@@ -2,12 +2,13 @@
 from codificacion import codifica3 as cod3
 from codificacion import decodifica3 as deco3
 import FNC as fn
+from dpll import dpll
 
 lC= []  #Lista de Caracteres
 
 Ncuadros = 24   #Número de Cuadros
-Ncolores = 6    #Número de Colores
-Nturnos  = 2   #Número de Turnos
+Ncolores = 2    #Número de Colores
+Nturnos  = 14   #Número de Turnos
 
 max = 0
 
@@ -30,13 +31,13 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
     Parameters
     ----------
     i1 : int
-        Description of parameter `i1`.
+        posición turno n.
     j1 : int
-        Description of parameter `j1`.
+        color actual.
     k1 : int
-        Description of parameter `k1`.
+        turno n.
     i2 : int
-        Description of parameter `i2`.
+        posición turno n+1.
 
     Returns
     -------
@@ -52,6 +53,21 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
     return reg
 
 def Upsilon(m, T):
+    """Short summary.
+
+    Parameters
+    ----------
+    m : type
+        Description of parameter `m`.
+    T : type
+        Description of parameter `T`.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
     list_y = "("
     string = ""
     count=1
@@ -61,12 +77,12 @@ def Upsilon(m, T):
     elif(T==4):t=13
     elif(T==5):t=17
     elif(T==6):t=21
-    
+
 #    assert((6<T) or (1>T)),"la notación Upsilon solo acepta un intervalo entre 1 y 6"
     for i in range(t,t+4):
         for j in range(1,7):
             Y = chr(255 + cod3(i,j,m,Ncuadros+1,Ncolores+1,Nturnos+1))
-            string += Y 
+            string += Y
     for nch in range(1,len(string)+1):
 
         if(count<4):
@@ -78,7 +94,7 @@ def Upsilon(m, T):
             count =1
 
     list_y = list_y[:len(list_y)-2]
-           
+
     return list_y
 
 
@@ -90,7 +106,7 @@ def regla1():
     -------
     str
 
-    """ 
+    """
     string= ""
     fin="("
     for N in range(1,Nturnos+1):
@@ -102,9 +118,9 @@ def regla1():
         k =i*6
         fin += "({}>-({}O{}O{}O{}O{}))Y".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5])
 #        print(deco3(ord(string[k])- 255,Ncuadros+1,Ncolores+1,Nturnos+1)," > -  ",deco3(ord(string[k+5])- 255,Ncuadros+1,Ncolores+1,Nturnos+1))
-        
+
     fin=fin[:len(fin)-1]
-    fin+=")"        
+    fin+=")"
     return fin
 def regla2():
     """Movimiento tipo U (Up).
@@ -116,7 +132,6 @@ def regla2():
     """
     Un = "("
     for k in range(1,Nturnos):
-        Un += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(16,j,k,15)
             b2 = Beta(15,j,k,13)
@@ -143,8 +158,9 @@ def regla2():
             b22 = Beta(20,j,k,20)
             b23 = Beta(21,j,k,21)
             b24 = Beta(22,j,k,22)
-            Un += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Un += ")O"
+            Un += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Un += "O"
+
     Un = Un[0:-1]
     Un += ")"
     return Un
@@ -159,7 +175,6 @@ def regla3():
     """
     Ui = "("
     for k in range(1,Nturnos):
-        Ui += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(15,j,k,16)
             b2 = Beta(13,j,k,15)
@@ -186,8 +201,9 @@ def regla3():
             b22 = Beta(20,j,k,20)
             b23 = Beta(21,j,k,21)
             b24 = Beta(22,j,k,22)
-            Ui += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Ui += ")O"
+            Ui += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Ui += "O"
+
     Ui = Ui[0:-1]
     Ui += ")"
     return Ui
@@ -202,7 +218,6 @@ def regla4():
     """
     Fn = "("
     for k in range(1,Nturnos):
-        Fn += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(1,j,k,2)
             b2 = Beta(2,j,k,4)
@@ -229,8 +244,9 @@ def regla4():
             b22 = Beta(22,j,k,22)
             b23 = Beta(23,j,k,23)
             b24 = Beta(24,j,k,24)
-            Fn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Fn += ")O"
+            Fn += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Fn += "O"
+
     Fn = Fn[0:-1]
     Fn += ")"
     return Fn
@@ -245,7 +261,6 @@ def regla5():
     """
     Fi = "("
     for k in range(1,Nturnos):
-        Fi += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(2,j,k,1)
             b2 = Beta(4,j,k,2)
@@ -272,8 +287,9 @@ def regla5():
             b22 = Beta(22,j,k,22)
             b23 = Beta(23,j,k,23)
             b24 = Beta(24,j,k,24)
-            Fi += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Fi += ")O"
+            Fi += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Fi += "O"
+
     Fi = Fi[0:-1]
     Fi += ")"
     return Fi
@@ -288,7 +304,6 @@ def regla6():
     """
     Dn = "("
     for k in range(1,Nturnos):
-        Dn += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(17,j,k,18)
             b2 = Beta(18,j,k,20)
@@ -315,8 +330,9 @@ def regla6():
             b22 = Beta(16,j,k,16)
             b23 = Beta(23,j,k,23)
             b24 = Beta(24,j,k,24)
-            Dn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Dn += ")O"
+            Dn += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Dn += "O"
+
     Dn = Dn[0:-1]
     Dn += ")"
     return Dn
@@ -358,8 +374,9 @@ def regla7():
             b22 = Beta(16,j,k,16)
             b23 = Beta(23,j,k,23)
             b24 = Beta(24,j,k,24)
-            Di += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Di += ")O"
+            Di += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Di += "O"
+
     Di = Di[0:-1]
     Di += ")"
     return Di
@@ -374,7 +391,6 @@ def regla8():
     """
     Bn = "("
     for k in range(1,Nturnos):
-        Bn += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(22,j,k,24)
             b2 = Beta(24,j,k,23)
@@ -401,8 +417,9 @@ def regla8():
             b22 = Beta(16,j,k,16)
             b23 = Beta(17,j,k,17)
             b24 = Beta(18,j,k,18)
-            Bn += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Bn += ")O"
+            Bn += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Bn += "O"
+
     Bn = Bn[0:-1]
     Bn += ")"
     return Bn
@@ -417,7 +434,6 @@ def regla9():
     """
     Bi = "("
     for k in range(1,Nturnos):
-        Bi += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(24,j,k,22)
             b2 = Beta(23,j,k,24)
@@ -444,8 +460,9 @@ def regla9():
             b22 = Beta(16,j,k,16)
             b23 = Beta(17,j,k,17)
             b24 = Beta(18,j,k,18)
-            Bi += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Bi += ")O"
+            Bi += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Bi += "O"
+
     Bi = Bi[0:-1]
     Bi += ")"
     return Bi
@@ -460,7 +477,6 @@ def regla10():
     """
     Un = "("
     for k in range(1,Nturnos):
-        Un += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(9,j,k,10)
             b2 = Beta(10,j,k,12)
@@ -474,7 +490,7 @@ def regla10():
             b10 = Beta(2,j,k,14)
             b11 = Beta(16,j,k,24)
             b12 = Beta(14,j,k,22)
-            
+
             b13 = Beta(1,j,k,1)
             b14 = Beta(3,j,k,3)
             b15 = Beta(5,j,k,5)
@@ -487,8 +503,9 @@ def regla10():
             b22 = Beta(19,j,k,19)
             b23 = Beta(21,j,k,21)
             b24 = Beta(23,j,k,23)
-            Un += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Un += ")O"
+            Un += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Un += "O"
+
     Un = Un[0:-1]
     Un += ")"
     return Un
@@ -503,7 +520,6 @@ def regla11():
     """
     Ri = "("
     for k in range(1,Nturnos):
-        Ri += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(10,j,k,9)
             b2 = Beta(12,j,k,10)
@@ -530,8 +546,9 @@ def regla11():
             b22 = Beta(19,j,k,19)
             b23 = Beta(21,j,k,21)
             b24 = Beta(23,j,k,23)
-            Ri += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Ri += ")O"
+            Ri += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Ri += "O"
+
     Ri = Ri[0:-1]
     Ri += ")"
     return Ri
@@ -546,7 +563,6 @@ def regla12():
     """
     Ln = "("
     for k in range(1,Nturnos):
-        Ln += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(5,j,k,6)
             b2 = Beta(6,j,k,8)
@@ -573,8 +589,9 @@ def regla12():
             b22 = Beta(20,j,k,20)
             b23 = Beta(22,j,k,22)
             b24 = Beta(24,j,k,24)
-            Ln += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Ln += ")O"
+            Ln += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Ln += "O"
+
     Ln = Ln[0:-1]
     Ln += ")"
     return Ln
@@ -589,7 +606,6 @@ def regla13():
     """
     Li = "("
     for k in range(1,Nturnos):
-        Li += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(6,j,k,5)
             b2 = Beta(8,j,k,6)
@@ -616,8 +632,9 @@ def regla13():
             b22 = Beta(20,j,k,20)
             b23 = Beta(22,j,k,22)
             b24 = Beta(24,j,k,24)
-            Li += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        Li += ")O"
+            Li += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            Li += "O"
+
     Li = Li[0:-1]
     Li += ")"
     return Li
@@ -632,7 +649,6 @@ def regla14():
     """
     N = "("
     for k in range(1,Nturnos):
-        N += "("
         for j in range(1,Ncolores+1):
             b1 = Beta(1,j,k,1)
             b2 = Beta(2,j,k,2)
@@ -659,8 +675,9 @@ def regla14():
             b22 = Beta(22,j,k,22)
             b23 = Beta(23,j,k,23)
             b24 = Beta(24,j,k,24)
-            N += "({}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{}Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-        N += ")O"
+            N += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+            N += "O"
+
     N = N[0:-1]
     N += ")"
     return N
@@ -685,12 +702,12 @@ def regla15():
         string += "(({}>-({}))O la siguiente regla ".format(regla,cons )
         reglas.insert(0, regla)
         cons=""
-        
+
     string= string[:len(string)-1]
     return string
-    
-    
-    
+
+
+
 
 def regla16(Nturnos:int):
     """Cubo solucionado en el turnon.
@@ -714,7 +731,7 @@ def regla16(Nturnos:int):
         if(n!=Nturnos):
             string +="O"
         else:continue
-    
+
     string += ")"
 #    string = string[:len(string)-5]
     return string
@@ -727,7 +744,7 @@ def regla17():
     str
 
     """
-    
+
     pass
 
 
@@ -739,11 +756,17 @@ formula  = regla2()
 fFNC = fn.Tseitin(formula, lC)
 
 #print(len(fFNC))
-print(fFNC)
+# print(fFNC)
 
 
 # Se obtiene la forma clausal como lista de listas de literales
 fClaus = fn.formaClausal(fFNC)
-#print(fClaus)
+# print(fClaus)
+
 #print(len(fClaus))
-#print(regla7())
+# print(regla2())
+#
+
+test = dpll(fClaus,{})
+
+print(test)
