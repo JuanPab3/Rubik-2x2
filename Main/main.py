@@ -1,13 +1,14 @@
 #================================ASPECTOS_TECNICOS==============================
 from codificacion import codifica3 as cod3
 from codificacion import decodifica3 as deco3
+from random import randint as rint
 import FNC as fn
 from dpll import dpll
 
 lC= []  #Lista de Caracteres
 
 Ncuadros = 24   #Número de Cuadros
-Ncolores = 2    #Número de Colores
+Ncolores = 6    #Número de Colores
 Nturnos  = 14   #Número de Turnos
 
 max = 0
@@ -22,7 +23,7 @@ for i in range(1,Ncuadros+1):
             lC.append(n)
             cud,col,tur = deco3(ord(n)- 255,Ncuadros+1,Ncolores+1,Nturnos+1)
             #  print("(X{}-Y{}-Z{}) -> {}".format(i,j,k,n))
-            # pri nt("{} -> (X{}-Y{}-Z{})\n".format(n,cud,col,tur))
+            # print("{} -> (X{}-Y{}-Z{})\n".format(n,cud,col,tur))
 
 #====================================FUNCIONES==================================
 def Beta(i1:int, j1:int ,k1:int, i2:int ):
@@ -58,9 +59,9 @@ def Upsilon(m, T):
     Parameters
     ----------
     m : type
-        Description of parameter `m`.
+        Turno actual.
     T : type
-        Description of parameter `T`.
+        Cara del cubo, de 1 a 6;
 
     Returns
     -------
@@ -78,7 +79,6 @@ def Upsilon(m, T):
     elif(T==5):t=17
     elif(T==6):t=21
 
-#    assert((6<T) or (1>T)),"la notación Upsilon solo acepta un intervalo entre 1 y 6"
     for i in range(t,t+4):
         for j in range(1,7):
             Y = chr(255 + cod3(i,j,m,Ncuadros+1,Ncolores+1,Nturnos+1))
@@ -97,6 +97,36 @@ def Upsilon(m, T):
 
     return list_y
 
+def regla0():
+    """Short summary.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
+
+    caras = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+    l_final = []
+    s_final = ""
+
+    while (caras != []) :
+        num = rint(0,len(caras)-1)
+        temp = chr(255+cod3(caras[num], j, 1,Ncuadros+1,Ncolores+1,Nturnos+1))
+        l_final.append(temp)
+        caras.remove(caras[num])
+
+    s_final += "({}Y{})".format(l_final[0],l_final[1])
+
+    for i in range(2,len(l_final)):
+        temp = "("
+        temp += s_final
+        temp += "Y{})".format(l_final[i])
+        s_final = temp
+
+    return s_final
+
 
 
 def regla1():
@@ -110,8 +140,8 @@ def regla1():
     string= ""
     fin="("
     for N in range(1,Nturnos+1):
-        for s in range(1,25):
-            for c in range(1,7):
+        for s in range(1,Ncuadros+1):
+            for c in range(1,Ncolores+1):
                 Y = chr(255 + cod3(s,c,N,Ncuadros+1,Ncolores+1,Nturnos+1))
                 string += Y
     for i in range(144):
@@ -122,6 +152,7 @@ def regla1():
     fin=fin[:len(fin)-1]
     fin+=")"
     return fin
+
 def regla2():
     """Movimiento tipo U (Up).
 
@@ -752,21 +783,21 @@ def regla17():
 #====================================CODIGO=====================================
 
 #formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
-formula  = regla2()
-fFNC = fn.Tseitin(formula, lC)
+# formula  = regla2()
+# fFNC = fn.Tseitin(formula, lC)
 
 #print(len(fFNC))
 # print(fFNC)
-
+regla0()
 
 # Se obtiene la forma clausal como lista de listas de literales
-fClaus = fn.formaClausal(fFNC)
+# fClaus = fn.formaClausal(fFNC)
 # print(fClaus)
 
 #print(len(fClaus))
 # print(regla2())
 #
 
-test = dpll(fClaus,{})
+# test = dpll(fClaus,{})
 
-print(test)
+# print(test)
