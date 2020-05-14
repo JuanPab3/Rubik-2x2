@@ -7,7 +7,7 @@ from dpll import dpll
 lC= []  #Lista de Caracteres
 
 Ncuadros = 24   #Número de Cuadros
-Ncolores = 2    #Número de Colores
+Ncolores = 6    #Número de Colores
 Nturnos  = 14   #Número de Turnos
 
 max = 0
