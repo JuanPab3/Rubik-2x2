@@ -730,7 +730,7 @@ def regla15():
         for j in reglas:
             cons+= j + "O"
         cons = cons[:len(cons)-1]
-        string += "(({}>-({}))O la siguiente regla ".format(regla,cons )
+        string += "(({}>-({}))O".format(regla,cons )
         reglas.insert(0, regla)
         cons=""
 
