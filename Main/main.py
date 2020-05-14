@@ -146,7 +146,7 @@ def regla1():
                 string += Y
     for i in range(144):
         k =i*6
-        fin += "({}>-({}O{}O{}O{}O{}))Y".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5])
+        fin += "(({})>-(({}O{})O({}O{})({}O{}))Y".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5],string[k+5])
 #        print(deco3(ord(string[k])- 255,Ncuadros+1,Ncolores+1,Nturnos+1)," > -  ",deco3(ord(string[k+5])- 255,Ncuadros+1,Ncolores+1,Nturnos+1))
 
     fin=fin[:len(fin)-1]
@@ -775,8 +775,11 @@ def regla17():
     str
 
     """
-
-    pass
+    string = ""
+    for N in range(1, Nturnos+1):
+        string += "(({}>{})Y({}>{}))Y".format(regla14(),regla16(N),regla16(N),regla14())
+    string = string[:len(string)-1]
+    return string
 
 
 
