@@ -146,6 +146,7 @@ def setCube(listaR,listaC):
     for i in range(0,24):
         listaR[i].setColor(listaC[i])
 
+
 #===============================ESTRUCTURA_CUBO================================
 
 #Todos los cuadros iniciaron de color blanco
@@ -215,11 +216,8 @@ for i in range(0,24):
     T = TurnDic(i+1,nc1[i]+1,4)
     Juego.append(T)
 
+pasos =  creador_turnos(Juego)
 #===============================================================================
-
-
-pasos =  creador_turnos(Juego)#Turnos
-
 
 def RUBIC(pasos:list):
 
@@ -230,6 +228,9 @@ def RUBIC(pasos:list):
     font1 = pg.font.SysFont("VT323",24,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
     font2 = pg.font.SysFont("VT323",70,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
 
+    b_ms = pg.mixer
+    b_ms.music.load("tetris.wav")
+    b_ms.music.play(-1)
 
     while  run:
 
