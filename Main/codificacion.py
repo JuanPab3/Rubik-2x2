@@ -34,3 +34,48 @@ def decodifica3(x, Nf, Nc, No):
     v1, o = decodifica(x, Nf * Nc, No)
     f, c = decodifica(v1, Nf, Nc)
     return f-1, c-1, o-1
+
+def deco_dict3(I:dict,Ncuadros:int,Ncolores:int,Nturnos:int):
+    keys = I.keys()
+    deco_list = []
+    for i in keys:
+        print("This I: {}".format(i))
+        cud,col,tur = decodifica3(ord(i)- 255,Ncuadros+1+255,Ncolores+1+255,Nturnos+1+255)
+        lis = [tur,cud,col,I[i]]
+        # str = "{}-{}-{}-{}".format(tur,cud,col,I[i])
+        deco_list.append(lis)
+    return deco_list
+
+def lis_to_col(lis:list,Nturnos:int,Ncuadros:int,Ncolores:int):
+    color_list = []
+    for k in range(0,Nturnos+1):
+        temp = []
+        for i in range(0,Ncuadros):
+            temp.append([])
+        color_list.append(temp)
+    print("Size: {}".format(color_list))
+    print("Size: {}".format(len(color_list[0])))
+    print("{}".format(color_list[0]))
+
+    for l in lis:
+        t = int(l[0])
+        s = int(l[1])
+        c = int(l[2])
+        vi = int(l[3])
+
+        print("({},{},{})".format(t,s,c))
+        if (t <= Nturnos and t >= 0):
+            if (s <= Ncuadros and s >= 0):
+                if (c <= Ncolores and c >= 0):
+                    if (vi == 1):
+                        color_list[t-1][s-1] = c
+                    else:
+                        pass
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+
+    return color_list

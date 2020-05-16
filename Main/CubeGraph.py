@@ -1,5 +1,7 @@
 #================================ASPECTOS_TECNICOS==============================
 import pygame as pg
+from pygame.locals import *
+
 
 turnosMax = 4
 pg.init()
@@ -8,7 +10,7 @@ pg.init()
 x = 1280
 y = 720
 
-win = pg.display.set_mode((x,y))
+win = pg.display.set_mode((x,y),FULLSCREEN)
 pg.display.set_caption("Rubik Cube 2X2")
 
 #=====================================CLASES====================================
@@ -259,6 +261,9 @@ def RUBIC(pasos:list):
 
         if keys[pg.K_UP]:
             turno = len(pasos) - 1
+
+        if keys[pg.K_q]:
+            run = False
 
         setCube(cube,pasos[turno])
 
