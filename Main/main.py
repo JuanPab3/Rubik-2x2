@@ -1,9 +1,12 @@
 #================================ASPECTOS_TECNICOS==============================
-from codificacion import codifica3 as cod3
+from codificacion import deco_dict3 as decodic
 from codificacion import decodifica3 as deco3
+from codificacion import codifica3 as cod3
+from codificacion import lis_to_col
 from random import randint as rint
-import FNC as fn
+from operator import *
 from dpll import dpll
+import FNC as fn
 
 lC= []  #Lista de Caracteres
 
@@ -127,7 +130,29 @@ def regla0():
 
     return s_final
 
+def basic_0():
+    final = ""
+    COLORES =  [3,1,5,5,
+                5,6,2,6,
+                4,3,1,1,
+                1,4,2,2,
+                5,3,6,5,
+                4,3,2,6]
 
+    L = []
+
+
+    for i in range(1,len(COLORES)+1):
+        cod_num = cod3(i,COLORES[i-1],1,Ncuadros+1,Ncolores+1,Nturnos+1)
+        n = chr(255+cod_num)
+        L.append(n)
+
+    final += "({}Y{})".format(L[0],L[1])
+    for i in range(2,len(L)):
+        final = "(" + final
+        final += "Y{})".format(L[i])
+
+    return final
 
 def regla1():
     """Ningun cuadro puede tener mas de un color.
@@ -740,9 +765,6 @@ def regla15():
     string+=")"
     return string
 
-
-
-
 def regla16(Nturnos:int):
     """Cubo solucionado en el turnon.
 
@@ -767,7 +789,7 @@ def regla16(Nturnos:int):
         else:continue
 
     string += ")"
-#    string = string[:len(string)-5]
+    #string = string[:len(string)-5]
     return string
 
 def regla17():
@@ -790,13 +812,17 @@ def regla17():
 
 #====================================CODIGO=====================================
 
-#formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
-formula  = regla16(2)
+# reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(),regla17()]
+
+formula  = basic_0()
 fFNC = fn.Tseitin(formula, lC)
+
+# formula_de_la_muere  = "((((((((((((((((({0}Y{1})Y{2})Y{3})Y{4})Y{5})Y{6})Y{7})Y{8})Y{9})Y{10})Y{11})Y{12})Y{13})Y{14})Y{15})Y{16})Y{17})".format(reglas[0],reglas[1],reglas[2],reglas[3],reglas[4],reglas[5],reglas[6],reglas[7],reglas[8],reglas[9],reglas[10],reglas[11],reglas[12],reglas[13],reglas[14],reglas[15],reglas[16],reglas[17])
+# print(formula_de_la_muere)
+# fFNC = fn.Tseitin(formula_de_la_muere, lC)
 
 #print(len(fFNC))
 # print(fFNC)
-#regla0()
 
 # Se obtiene la forma clausal como lista de listas de literales
 fClaus = fn.formaClausal(fFNC)
@@ -806,6 +832,40 @@ fClaus = fn.formaClausal(fFNC)
 # print(regla2())
 #
 
-test = dpll(fClaus,{})
+test = {}
 
-print(test)
+test = dpll(fClaus,test)
+
+sat, dic = test
+
+# print(sat)
+
+final = decodic(dic,Ncuadros,Ncolores,Nturnos)
+
+
+sorted(final, key=itemgetter(2))
+
+
+
+
+# print(final)
+with open("satisfacible.txt", "w") as f:
+    for i in final:
+        f.write("{} {} {} {}\n".format(i[0],i[1],i[2],i[3]))
+
+file_list = []
+with open("satisfacible.txt","r") as f:
+    for line in f:
+        file_list.extend([line.split()])
+
+for l in file_list:
+    # l[0] = "T{}".format(l[0])
+    # l[1] = "S{}".format(l[1])
+    # l[2] = "C{}".format(l[2])
+    l[0] = "{}".format(l[0])
+    l[1] = "{}".format(l[1])
+    l[2] = "{}".format(l[2])
+
+colores = lis_to_col(file_list,Nturnos,Ncuadros,Ncolores)
+
+print(file_list)

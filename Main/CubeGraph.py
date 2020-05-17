@@ -10,7 +10,7 @@ pg.init()
 x = 1280
 y = 720
 
-win = pg.display.set_mode((x,y),FULLSCREEN)
+win = pg.display.set_mode((x,y))#,FULLSCREEN)
 pg.display.set_caption("Rubik Cube 2X2")
 
 #=====================================CLASES====================================
@@ -32,6 +32,8 @@ class Square:
             lista 'self.colores'.
 
         """
+
+
         self.colores = [(255,255,255),(0,159,215,84),(0,217,157,85),(104,0,213,84),(252,61,85,99),(255,172,0,100)]
         self.x = x
         self.y = y

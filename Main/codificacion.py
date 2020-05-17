@@ -41,7 +41,7 @@ def deco_dict3(I:dict,Ncuadros:int,Ncolores:int,Nturnos:int):
     for i in keys:
         print("This I: {}".format(i))
         cud,col,tur = decodifica3(ord(i)- 255,Ncuadros+1+255,Ncolores+1+255,Nturnos+1+255)
-        lis = [tur,cud,col,I[i]]
+        lis = [cud,col,tur,I[i]]
         # str = "{}-{}-{}-{}".format(tur,cud,col,I[i])
         deco_list.append(lis)
     return deco_list
@@ -64,11 +64,11 @@ def lis_to_col(lis:list,Nturnos:int,Ncuadros:int,Ncolores:int):
         vi = int(l[3])
 
         print("({},{},{})".format(t,s,c))
-        if (t <= Nturnos and t >= 0):
-            if (s <= Ncuadros and s >= 0):
-                if (c <= Ncolores and c >= 0):
+        if (t <= Nturnos and t >= 1):
+            if (s <= Ncuadros and s >= 1):
+                if (c <= Ncolores and c >= 1):
                     if (vi == 1):
-                        color_list[t-1][s-1] = c
+                        color_list[t-1][s-1] = c-1
                     else:
                         pass
                 else:
