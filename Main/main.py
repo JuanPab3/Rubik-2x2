@@ -147,14 +147,12 @@ def regla1():
                 string += Y
     for i in range(Ncolores*4):
         k =i*6
-        fin = "{}>-((((({})O{})O{})O{})O{})".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5])
+        fin = "{}>-((({}O{})O({}O{}))O({}O{}))".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5],string[k+5])
         lista1.append(fin)
 
 
     string="((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(lista1[0],lista1[1],lista1[2],lista1[3],lista1[4],lista1[5],lista1[6],lista1[7],lista1[8],lista1[9],lista1[10],lista1[11],lista1[12],lista1[13],lista1[14],lista1[15],lista1[16],lista1[17],lista1[18],lista1[19],lista1[20],lista1[21],lista1[22],lista1[23])
 
-
-    print(len(lista1))
     return string
 
 def regla2():
