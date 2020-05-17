@@ -50,7 +50,6 @@ def Tseitin(A, letrasProposicionalesA):
             w=Pila[-1]
             u=Pila[-2]
             v=Pila[-3]
-            print("esta es W",w,"esta es V",v)
             assert((w!="Y") and(v!="Y")),"se encontró una Y"
             Pila=Pila[:len(Pila)-4]
             I+=1
