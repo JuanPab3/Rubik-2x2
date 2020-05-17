@@ -784,14 +784,14 @@ def regla17():
         sis= "(({}>{})Y({}>{}))".format(regla2(),regla2(),regla2(),regla2())
         lista_sis.append(sis)
     string = "({}Y{})".format(lista_sis[0],lista_sis[1])
-    return string
+    return sis
 
 
 
 #====================================CODIGO=====================================
 
 #formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
-formula  = regla1()
+formula  = regla16(2)
 fFNC = fn.Tseitin(formula, lC)
 
 #print(len(fFNC))
