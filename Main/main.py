@@ -137,21 +137,25 @@ def regla1():
     str
 
     """
-    string= ""
-    fin="("
+    string= "("
+
+    lista1=[]
     for N in range(1,Nturnos+1):
         for s in range(1,Ncuadros+1):
             for c in range(1,Ncolores+1):
                 Y = chr(255 + cod3(s,c,N,Ncuadros+1,Ncolores+1,Nturnos+1))
                 string += Y
-    for i in range(144):
+    for i in range(Ncolores*4):
         k =i*6
-        fin += "(({})>-(({}O{})O({}O{})({}O{}))Y".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5],string[k+5])
-#        print(deco3(ord(string[k])- 255,Ncuadros+1,Ncolores+1,Nturnos+1)," > -  ",deco3(ord(string[k+5])- 255,Ncuadros+1,Ncolores+1,Nturnos+1))
+        fin = "{}>-((((({})O{})O{})O{})O{})".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5])
+        lista1.append(fin)
 
-    fin=fin[:len(fin)-1]
-    fin+=")"
-    return fin
+
+    string="((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(lista1[0],lista1[1],lista1[2],lista1[3],lista1[4],lista1[5],lista1[6],lista1[7],lista1[8],lista1[9],lista1[10],lista1[11],lista1[12],lista1[13],lista1[14],lista1[15],lista1[16],lista1[17],lista1[18],lista1[19],lista1[20],lista1[21],lista1[22],lista1[23])
+
+
+    print(len(lista1))
+    return string
 
 def regla2():
     """Movimiento tipo U (Up).
@@ -777,9 +781,11 @@ def regla17():
 
     """
     string = ""
+    lista_sis=[]
     for N in range(1, Nturnos+1):
-        string += "(({}>{})Y({}>{}))Y".format(regla14(),regla16(N),regla16(N),regla14())
-    string = string[:len(string)-1]
+        sis= "(({}>{})Y({}>{}))".format(regla2(),regla2(),regla2(),regla2())
+        lista_sis.append(sis)
+    string = "({}Y{})".format(lista_sis[0],lista_sis[1])
     return string
 
 
@@ -787,7 +793,7 @@ def regla17():
 #====================================CODIGO=====================================
 
 #formula = "("+regla2()+"Y"+regla3()+"Y"+regla4()+"Y"+regla5()+"Y"+regla6()+"Y"+regla7()+"Y"+regla8()+"Y"+regla9()+"Y"+regla10()+"Y"+regla11()+"Y"+regla12()+"Y"+regla13()+"Y"+regla14()+")"
-formula  = regla15()
+formula  = regla1()
 fFNC = fn.Tseitin(formula, lC)
 
 #print(len(fFNC))
