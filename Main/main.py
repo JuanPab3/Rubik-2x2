@@ -790,7 +790,6 @@ def regla16(Nturnos:int):
         temp += "Y{})".format(forms[i])
         string = temp
 
-    print(string)
     return string
 
 def regla17():
@@ -804,10 +803,19 @@ def regla17():
     string = ""
     lista_sis=[]
     for N in range(1, Nturnos+1):
-        sis= "(({}>{})Y({}>{}))".format(regla2(),regla2(),regla2(),regla2())
+        sis= "(({}>{})Y({}>{}))".format(regla16(N),regla14(),regla14(),regla16(N))
         lista_sis.append(sis)
-    string = "({}Y{})".format(lista_sis[0],lista_sis[1])
-    return sis
+    string += "({}Y{})".format(lista_sis[0],lista_sis[1])
+    print(len(lista_sis))
+    if(len(lista_sis)>2):
+        for i in range(2,len(lista_sis)):
+            temp = "("
+            temp += string
+            temp += "Y{})".format(lista_sis[i])
+            string = temp
+
+
+    return string
 
 
 
@@ -815,7 +823,7 @@ def regla17():
 
 # reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(),regla17()]
 
-formula  = regla16(Nturnos)
+formula  = regla17()
 print("inicio a Tseiting")
 fFNC = fn.Tseitin(formula, lC)
 
