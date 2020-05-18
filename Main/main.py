@@ -72,6 +72,8 @@ def Upsilon(m, T):
         Description of returned object.
 
     """
+    lista= []
+    lista2 =[]
     list_y = "("
     string = ""
     count=1
@@ -85,20 +87,19 @@ def Upsilon(m, T):
     for i in range(t,t+4):
         for j in range(1,7):
             Y = chr(255 + cod3(i,j,m,Ncuadros+1,Ncolores+1,Nturnos+1))
-            string += Y
-    for nch in range(1,len(string)+1):
+            lista.append( Y)
 
-        if(count<4):
-            list_y += "{}Y".format(string[nch-1])
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[0],lista[1],lista[2],lista[3]))
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[4],lista[5],lista[6],lista[7]))
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[8],lista[9],lista[10],lista[11]))
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[12],lista[13],lista[14],lista[15]))
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[16],lista[17],lista[18],lista[19]))
+    lista2.append("((({}Y{})Y{})Y{})".format(lista[20],lista[21],lista[22],lista[23]))
+    string = "((((({}O{})O{})O{})O{})O{})".format(lista2[0],lista2[1],lista2[2],lista2[3],lista2[4],lista2[5])
 
-            count+=1
-        elif(count==4):
-            list_y += "{})O(".format(string[nch-1])
-            count =1
 
-    list_y = list_y[:len(list_y)-2]
 
-    return list_y
+    return string
 
 def regla0():
     """Short summary.
@@ -775,20 +776,21 @@ def regla16(Nturnos:int):
     str
 
     """
-    string ="("
+    string = ""
+    forms = []
     for n in range(1,Nturnos+1):
         for S in range(1,Ncolores+1):
-                string +="(" + Upsilon(n,S) + ")"
-                if(S != 6):
-                    string += "Y"
-                else:
-                    continue
-        if(n!=Nturnos):
-            string +="O"
-        else:continue
+                forms.append( Upsilon(n,S) )
 
-    string += ")"
-    #string = string[:len(string)-5]
+    string += "({}Y{})".format(forms[0],forms[1])
+
+    for i in range(2,len(forms)):
+        temp = "("
+        temp += string
+        temp += "Y{})".format(forms[i])
+        string = temp
+
+    print(string)
     return string
 
 def regla17():
@@ -813,7 +815,7 @@ def regla17():
 
 # reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(),regla17()]
 
-formula  = regla15()
+formula  = regla16(Nturnos)
 print("inicio a Tseiting")
 fFNC = fn.Tseitin(formula, lC)
 
