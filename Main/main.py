@@ -755,11 +755,10 @@ def regla15():
     largo = len(reglas)
     for j in range(len(reglas)):
         reglas_cop.pop(j)
-        print(len(reglas_cop))
-        mini = "({}>-((((((({})O({}))O(({})O({})))O(({})O({})))O(({})O({})))O(({})O({})))O(({})O({}))))".format(reglas[j],reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11],reglas_cop[11])
+        mini = "({}>(-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})))".format(reglas[j],reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11],reglas_cop[11])
         temp.append(mini)
         reglas_cop = reglas.copy()
-        print(len(reglas_cop))
+
 
     string = "(((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7],temp[8],temp[9],temp[10],temp[11],temp[12])
 
@@ -815,6 +814,7 @@ def regla17():
 # reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(),regla17()]
 
 formula  = regla15()
+print("inicio a Tseiting")
 fFNC = fn.Tseitin(formula, lC)
 
 # formula_de_la_muere  = "((((((((((((((((({0}Y{1})Y{2})Y{3})Y{4})Y{5})Y{6})Y{7})Y{8})Y{9})Y{10})Y{11})Y{12})Y{13})Y{14})Y{15})Y{16})Y{17})".format(reglas[0],reglas[1],reglas[2],reglas[3],reglas[4],reglas[5],reglas[6],reglas[7],reglas[8],reglas[9],reglas[10],reglas[11],reglas[12],reglas[13],reglas[14],reglas[15],reglas[16],reglas[17])
@@ -825,6 +825,7 @@ fFNC = fn.Tseitin(formula, lC)
 # print(fFNC)
 
 # Se obtiene la forma clausal como lista de listas de literales
+print("inicio a Clausal")
 fClaus = fn.formaClausal(fFNC)
 # print(fClaus)
 
@@ -833,7 +834,7 @@ fClaus = fn.formaClausal(fFNC)
 #
 
 test = {}
-
+print("inicio a DPLL")
 test = dpll(fClaus,test)
 
 #sat, dic = test
