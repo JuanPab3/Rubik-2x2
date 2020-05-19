@@ -771,8 +771,8 @@ def regla15():
     largo = len(reglas)
     for j in range(len(reglas)):
         reglas_cop.pop(j)
-#        -((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})
-        negacion = "-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})".format(reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11])
+#        (-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
+        negacion = "(-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))".format(reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11])
         mini = "({}>{})".format(reglas[j],negacion)
 #       ({}>-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
         temp.append(mini)

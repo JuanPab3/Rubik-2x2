@@ -21,7 +21,7 @@ def enFNC(A):
     elif "=" in A:
         q = A[4]
         r = A[6]
-        B = q+"O-"+ r+ "O-"+p+"Y-"+q"O"+r+"O-"+p+"Y-"+q"O-"+r+"O"+p+"Y"+q+"O"+r+"O"+p
+        B = q+"O-"+ r+ "O-"+p+"Y-"+q+"O"+r+"O-"+p+"Y-"+q"O-"+r+"O"+p+"Y"+q+"O"+r+"O"+p
 
     else:
         print(u'Error enENC(): Fórmula incorrecta!')
