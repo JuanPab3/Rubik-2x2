@@ -753,10 +753,28 @@ def regla15():
     temp =[]
     reglas = [regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14()]
     reglas_cop = [regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14()]
+    equivalencias = ["(A={})".format(regla2()),
+    "(B={})".format(regla3()),
+    "(C={})".format(regla4()),
+    "(D={})".format(regla5()),
+    "(E={})".format(regla6()),
+    "(F={})".format(regla7()),
+    "(G={})".format(regla8()),
+    "(H={})".format(regla9()),
+    "(I={})".format(regla10()),
+    "(J={})".format(regla11()),
+    "(K={})".format(regla12()),
+    "(L={})".format(regla13()),
+    "(M={})".format(regla14())]
+    letras=["A","B","C","D","E","F","G","H","I","J","K","L","M"]
+    letras_cop=["A","B","C","D","E","F","G","H","I","J","K","L","M"]
     largo = len(reglas)
     for j in range(len(reglas)):
         reglas_cop.pop(j)
-        mini = "({}>(-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})))".format(reglas[j],reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11],reglas_cop[11])
+#        -((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})
+        negacion = "-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})".format(reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11])
+        mini = "({}>{})".format(reglas[j],negacion)
+#       ({}>-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
         temp.append(mini)
         reglas_cop = reglas.copy()
 
@@ -821,9 +839,9 @@ def regla17():
 
 #====================================CODIGO=====================================
 
-# reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(),regla17()]
+# reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(Nturnos),regla17()]
 
-formula  = regla17()
+formula  = regla15()
 print("inicio a Tseiting")
 fFNC = fn.Tseitin(formula, lC)
 
