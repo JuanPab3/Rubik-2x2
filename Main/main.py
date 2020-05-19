@@ -12,7 +12,7 @@ lC= []  #Lista de Caracteres
 
 Ncuadros = 24   #Número de Cuadros
 Ncolores = 6    #Número de Colores
-Nturnos  = 2   #Número de Turnos
+Nturnos  = 5   #Número de Turnos
 
 max = 0
 
@@ -771,10 +771,10 @@ def regla15():
     largo = len(reglas)
     for j in range(len(reglas)):
         reglas_cop.pop(j)
-#        (-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
+        #        (-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
         negacion = "(-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))".format(reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11])
         mini = "({}>{})".format(reglas[j],negacion)
-#       ({}>-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
+        #       ({}>-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
         temp.append(mini)
         reglas_cop = reglas.copy()
 
@@ -839,15 +839,14 @@ def regla17():
 
 #====================================CODIGO=====================================
 
-# reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(Nturnos),regla17()]
+reglas = [regla0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(Nturnos),regla17()]
+#
+# formula  = regla15()
+# fFNC = fn.Tseitin(formula, lC)
 
-formula  = regla15()
+formula_de_la_muere  = "((((((((((((((((({0}Y{1})Y{2})Y{3})Y{4})Y{5})Y{6})Y{7})Y{8})Y{9})Y{10})Y{11})Y{12})Y{13})Y{14})Y{15})Y{16})Y{17})".format(reglas[0],reglas[1],reglas[2],reglas[3],reglas[4],reglas[5],reglas[6],reglas[7],reglas[8],reglas[9],reglas[10],reglas[11],reglas[12],reglas[13],reglas[14],reglas[15],reglas[16],reglas[17])
 print("inicio a Tseiting")
-fFNC = fn.Tseitin(formula, lC)
-
-# formula_de_la_muere  = "((((((((((((((((({0}Y{1})Y{2})Y{3})Y{4})Y{5})Y{6})Y{7})Y{8})Y{9})Y{10})Y{11})Y{12})Y{13})Y{14})Y{15})Y{16})Y{17})".format(reglas[0],reglas[1],reglas[2],reglas[3],reglas[4],reglas[5],reglas[6],reglas[7],reglas[8],reglas[9],reglas[10],reglas[11],reglas[12],reglas[13],reglas[14],reglas[15],reglas[16],reglas[17])
-# print(formula_de_la_muere)
-# fFNC = fn.Tseitin(formula_de_la_muere, lC)
+fFNC = fn.Tseitin(formula_de_la_muere, lC)
 
 #print(len(fFNC))
 # print(fFNC)
@@ -869,12 +868,10 @@ test = dpll(fClaus,test)
 
 print(test)
 
-#final = decodic(dic,Ncuadros,Ncolores,Nturnos)
+final = decodic(dic,Ncuadros,Ncolores,Nturnos)
 
 
-#sorted(final, key=itemgetter(2))
-
-
+sorted(final, key=itemgetter(2))
 
 
 # print(final)
