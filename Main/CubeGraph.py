@@ -10,7 +10,7 @@ pg.init()
 x = 1280
 y = 720
 
-win = pg.display.set_mode((x,y))#,FULLSCREEN)
+win = pg.display.set_mode((x,y),FULLSCREEN)
 pg.display.set_caption("Rubik Cube 2X2")
 
 #=====================================CLASES====================================
@@ -102,13 +102,16 @@ class TurnDic:
 
 #====================================FUNCIONES==================================
 
-def creador_turnos(J:list):
+
+
+def creador_turnos(J:list,Ncuadros:int,Ncolores:int,Nturnos:int):
     """Crear lista de tirno a partir de lista de diccionarios
 
     Parameters
     ----------
     J : list
-        Lista de diccionarios
+        Lista de tres valores, cada uno representando el cuadro, el color y
+        el turno respectivamente.
 
     Returns
     -------
@@ -116,25 +119,33 @@ def creador_turnos(J:list):
         Lista de lista que contiene los colores de los cuadros por cada turno.
 
     """
-    final = []
-    for i in range(1,turnosMax+1):
-        parcial = []
-        for j in J:
-            if (j.dirT["t{}".format(i)] == 1):
-                if j.dirC["c1"] == 1:
-                    parcial.append(0)
-                elif j.dirC["c2"] == 1:
-                    parcial.append(1)
-                elif j.dirC["c3"] == 1:
-                    parcial.append(2)
-                elif j.dirC["c4"] == 1:
-                    parcial.append(3)
-                elif j.dirC["c5"] == 1:
-                    parcial.append(4)
-                elif j.dirC["c6"] == 1:
-                    parcial.append(5)
-        final.append(parcial)
-    return final
+    pasos = []
+    for k in range(Nturnos):
+        temp = []
+        for i in range(Ncuadros):
+            temp.append(0)
+        pasos.append(temp)
+
+    for l in J:
+        s = l[0]
+        c = l[1]
+        t = l[2]
+
+        # print("({},{},{})".format(t,s,c))
+        if (t <= Nturnos and t >= 1):
+            if (s <= Ncuadros and s >= 1):
+                if (c <= Ncolores and c >= 1):
+                    pasos[t-1][s-1] = c-1
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+
+    return pasos
+
+
 
 def setCube(listaR,listaC):
     """Cambia los colores de cada elemento del cubo.
@@ -191,40 +202,11 @@ s24 = Square(pex+60,430+pey,0)
 #Lista compuesta por todos los cuadrados que conforman el cubo.
 cube = [s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24]
 
-#==================================SIMULACIÓN==================================
-
-nc1 = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5] # Estado Inicial
-nc2 = [0,0,0,0,1,4,1,4,3,2,3,2,3,3,1,1,2,2,4,4,5,5,5,5] # Front
-nc3 = [0,0,1,4,1,4,5,5,3,2,0,0,3,3,1,1,2,2,4,4,3,2,5,5] # Down
-nc4 = [2,0,4,4,4,5,1,5,3,2,0,0,0,3,1,1,3,2,5,4,3,2,1,5] # Left Inverted - 1
-
-Juego = []
-
-# Left Inverted - 1
-for i in range(0,24):
-    T = TurnDic(i+1,nc4[i]+1,1)
-    Juego.append(T)
-
-# Down - 2
-for i in range(0,24):
-    T = TurnDic(i+1,nc3[i]+1,2)
-    Juego.append(T)
-
-# Front - 3
-for i in range(0,24):
-    T = TurnDic(i+1,nc2[i]+1,3)
-    Juego.append(T)
-
- # Estado Final - 4
-for i in range(0,24):
-    T = TurnDic(i+1,nc1[i]+1,4)
-    Juego.append(T)
-
-pasos =  creador_turnos(Juego)
 #===============================================================================
 
-def RUBIC(pasos:list):
+def RUBIC(movimientos:list,Ncuadros:int,Ncolores:int,Nturnos:int):
 
+    pasos = creador_turnos(movimientos,Ncuadros,Ncolores,Nturnos)
     run = True
     turno = 0
     setCube(cube,pasos[turno])  #Se deja el cubo en Estado Inicial
@@ -290,4 +272,4 @@ def RUBIC(pasos:list):
     pg.quit() # Cerrar Pestaña
 
 
-RUBIC(pasos)
+# RUBIC(pasos)

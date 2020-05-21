@@ -57,25 +57,4 @@ def lis_to_col(lis:list,Nturnos:int,Ncuadros:int,Ncolores:int):
     print("Size: {}".format(len(color_list[0])))
     print("{}".format(color_list[0]))
 
-    for l in lis:
-        t = int(l[0])
-        s = int(l[1])
-        c = int(l[2])
-        vi = int(l[3])
-
-        print("({},{},{})".format(t,s,c))
-        if (t <= Nturnos and t >= 1):
-            if (s <= Ncuadros and s >= 1):
-                if (c <= Ncolores and c >= 1):
-                    if (vi == 1):
-                        color_list[t-1][s-1] = c-1
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass
-        else:
-            pass
-
-    return color_list
+    
