@@ -767,16 +767,19 @@ def regla15():
     "(L={})".format(regla13()),
     "(M={})".format(regla14())]
     letras=["A","B","C","D","E","F","G","H","I","J","K","L","M"]
-    letras_cop=["A","B","C","D","E","F","G","H","I","J","K","L","M"]
+    equivalencias_= equivalencias.copy()
+    itoria = "(((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(equivalencias[0],equivalencias[1],equivalencias[2],equivalencias[3],equivalencias[4],equivalencias[5],equivalencias[6],equivalencias[7],equivalencias[8],equivalencias[9],equivalencias[10],equivalencias[11],equivalencias[12])
     largo = len(reglas)
     for j in range(len(reglas)):
-        reglas_cop.pop(j)
+        equivalencias.pop(j)
         #        (-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
-        negacion = "(-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))".format(reglas_cop[0],reglas_cop[1],reglas_cop[2],reglas_cop[3],reglas_cop[4],reglas_cop[5],reglas_cop[6],reglas_cop[7],reglas_cop[8],reglas_cop[9],reglas_cop[10],reglas_cop[11])
-        mini = "({}>{})".format(reglas[j],negacion)
+        negacion = "(-(((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))".format(equivalencias[0],equivalencias[1],equivalencias[2],equivalencias[3],equivalencias[4],equivalencias[5],equivalencias[6],equivalencias[7],equivalencias[8],equivalencias[9],equivalencias[10],equivalencias[11])
+
+        mini = "(({}>{})Y{})".format(reglas[j],negacion,itoria)
         #       ({}>-((((((((((({}O{})O{})O{})O{})O{})O{})O{})O{})O{})O{})O{}))
         temp.append(mini)
         reglas_cop = reglas.copy()
+        equivalencias = equivalencias_.copy()
 
 
     string = "(((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7],temp[8],temp[9],temp[10],temp[11],temp[12])
