@@ -1,30 +1,32 @@
 
 def enFNC(A):
-    assert(len(A)==5 or len(A)==8), u"Fórmula incorrecta!"
+#    assert(len(A)==5 or len(A)==8), u"Fórmula incorrecta!"
+    assert(len(A)==4 or len(A)==5), u"Fórmula incorrecta!"
     B = ''
     p = A[0]
     if "-" in A:
         q = A[-1]
         B = "-"+p+"O-"+q+"Y"+p+"O"+q
     elif "Y" in A:
-        q = A[4]
-        r = A[6]
+        q = A[2]
+        r = A[4]
         B = q+"O-"+p+"Y"+r+"O-"+p+"Y-"+q+"O-"+r+"O"+p
     elif "O" in A:
-        q = A[4]
-        r = A[6]
+        q = A[2]
+        r = A[4]
         B = "-"+q+"O"+p+"Y-"+r+"O"+p+"Y"+q+"O"+r+"O-"+p
     elif ">" in A:
-        q = A[4]
-        r = A[6]
+        q = A[2]
+        r = A[4]
         B = q+"O"+p+"Y-"+r+"O"+p+"Y-"+q+"O"+r+"O-"+p
     elif "=" in A:
-        q = A[4]
-        r = A[6]
+        q = A[2]
+        r = A[4]
         B = q+"O-"+ r+ "O-"+p+"Y-"+q+"O"+r+"O-"+p+"Y-"+q+"O-"+r+"O"+p+"Y"+q+"O"+r+"O"+p
 
     else:
-        print(u'Error enENC(): Fórmula incorrecta!')
+#        print(u'Error enENC(): Fórmula incorrecta!')
+        raise ValueError("FNC se fue al #$%#&")
     return B
 
 # Algoritmo de transformacion de Tseitin
@@ -32,6 +34,7 @@ def enFNC(A):
 # Output: B (cadena), Tseitin
 def Tseitin(A, letrasProposicionalesA):
     letrasProposicionalesB = [chr(x) for x in range(256+100000,256+11*(10**5))]
+#    letrasProposicionalesB = [chr(x) for x in range(256+100000,256+11*(10**5))]
     # letrasProposicionalesB = ['A', 'B', 'C', 'D', 'E', 'F']
     assert(not bool(set(letrasProposicionalesA) & set(letrasProposicionalesB))), u"¡Hay letras proposicionales en común!"
     assert("Y" not in letrasProposicionalesA),"existe una Y en Letras A"
@@ -47,7 +50,7 @@ def Tseitin(A, letrasProposicionalesA):
             Atomo = letrasProposicionalesB[I]
             Pila=Pila[0:-1]
             Pila.append(Atomo)
-            L.append("{}==-{}".format(Atomo,s))
+            L.append("{}=-{}".format(Atomo,s))
             A=A[1:]
             if len(A)>0:
                 s=A[0]
@@ -59,7 +62,7 @@ def Tseitin(A, letrasProposicionalesA):
             Pila=Pila[:len(Pila)-4]
             I+=1
             Atomo=letrasProposicionalesB[I]
-            L.append("{}==({}{}{})".format(Atomo,v,u,w))
+            L.append("{}={}{}{}".format(Atomo,v,u,w))
 
             s= Atomo
         else:

@@ -10,7 +10,7 @@ pg.init()
 x = 1280
 y = 720
 
-win = pg.display.set_mode((x,y),FULLSCREEN)
+win = pg.display.set_mode((x,y))
 pg.display.set_caption("Rubik Cube 2X2")
 
 #=====================================CLASES====================================
