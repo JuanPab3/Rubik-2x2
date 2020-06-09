@@ -126,7 +126,6 @@ def creador_turnos(J:list,Ncuadros:int,Ncolores:int,Nturnos:int):
             temp.append(0)
         pasos.append(temp)
 
-
     for l in J:
         s = l[0]
         c = l[1]
@@ -219,7 +218,7 @@ def RUBIC(movimientos:list,Ncuadros:int,Ncolores:int,Nturnos:int):
     font1 = pg.font.SysFont("VT323",24,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
     font2 = pg.font.SysFont("VT323",70,False,False,None) #Para mejor experiencia instala hay que intalar la tipografía que está en la carpeta.
 
-    # b_ms = pg.mixer
+    # b_ms  pg.mixer
     # b_ms.music.load("tetris.wav")
     # b_ms.music.play(-1)
 

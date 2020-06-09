@@ -1,28 +1,27 @@
+#================================ASPECTOS_TECNICOS==============================
 from codificacion import deco_dict3 as decodic
-from codificacion import decodifica3 as deco3
-from codificacion import codifica3 as cod3
-from codificacion import lis_to_col
+from codificacion import decodifica3
+from codificacion import codifica3
 from random import randint as rint
 from CubeGraph import RUBIC
 from operator import *
-
-
+#====================================CODIGO=====================================
 
 Ncuadros = 24   #Número de Cuadros
-Ncolores = 6    #Número de Colores
-Nturnos  = 2   #Número de Turnos
+Ncolores = 3    #Número de Colores
+Nturnos  = 2    #Número de Turnos
 
 max = 0
 lC= []
-for i in range(1,Ncuadros+1):
-    for j in range(1,Ncolores+1):
-        for k in range(1,Nturnos+1):
-            cod_num = cod3(i,j,k,Ncuadros+1,Ncolores+1,Nturnos+1)
+for i in range(0,Ncuadros):
+    for j in range(0,Ncolores):
+        for k in range(0,Nturnos):
+            cod_num = codifica3(i,j,k,Ncuadros,Ncolores,Nturnos)
             if (cod_num > max):
                 max = cod_num
             n = chr(255+cod_num)
             lC.append(n)
-            cud,col,tur = deco3(ord(n)- 255,Ncuadros+1,Ncolores+1,Nturnos+1)
+            # cud,col,tur = decodifica3(ord(n)- 255,Ncuadros,Ncolores,Nturnos)
             #  print("(X{}-Y{}-Z{}) -> {}".format(i,j,k,n))
             # print("{} -> (X{}-Y{}-Z{})\n".format(n,cud,col,tur))
 
@@ -40,7 +39,7 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
     k1 : int
         turno n.
     i2 : int
-        posición turno n+1.
+        posición turno n.
 
     Returns
     -------
@@ -49,8 +48,8 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
 
     """
     reg = ""
-    ant = chr(255+cod3(i1, j1, k1,Ncuadros+1,Ncolores+1,Nturnos+1))
-    cons = chr(255+cod3(i2, j1, k1+1,Ncuadros+1,Ncolores+1,Nturnos+1))
+    ant = chr(255+codifica3(i1, j1, k1,Ncuadros,Ncolores,Nturnos))
+    cons = chr(255+codifica3(i2, j1, k1,Ncuadros,Ncolores,Nturnos))
     reg += "(-{}O{})".format(ant,cons)
 
     return reg
@@ -84,8 +83,8 @@ def Upsilon(m, T):
     elif(T==6):t=21
 
     for i in range(t,t+4):
-        for j in range(1,7):
-            Y = chr(255 + cod3(i,j,m,Ncuadros+1,Ncolores+1,Nturnos+1))
+        for j in range(0,7):
+            Y = chr(255 + codifica3(i,j,m,Ncuadros,Ncolores,Nturnos))
             lista.append( Y)
 
     lista2.append("((({}Y{})Y{})Y{})".format(lista[0],lista[1],lista[2],lista[3]))
@@ -116,7 +115,7 @@ def regla0():
 
     while (caras != []) :
         num = rint(0,len(caras)-1)
-        temp = chr(255+cod3(caras[num], j, 1,Ncuadros+1,Ncolores+1,Nturnos+1))
+        temp = chr(255+codifica3(caras[num], j, 1,Ncuadros,Ncolores,Nturnos))
         l_final.append(temp)
         caras.remove(caras[num])
 
@@ -130,6 +129,33 @@ def regla0():
 
     return s_final
 
+
+def basic_1():
+    final = ""
+    COLORES =  [0,0,0,0, # Front
+                1,1,1,1, # Left
+                1,1,1,1, # Right
+                2,1,1,2, # Up
+                1,1,1,1, # Down
+                0,0,0,0] # Back
+    L = []
+
+
+    for i in range(0,len(COLORES)):
+        # print(f's: {i}')
+        # print(f'c: {COLORES[i]}')
+        # print(f't: {0}')
+        cod_num = codifica3(i,COLORES[i],0,Ncuadros,Ncolores,Nturnos)
+        n = chr(255+cod_num)
+        L.append(n)
+
+    final += "({}Y{})".format(L[0],L[1])
+    for i in range(2,len(L)):
+        final = "(" + final
+        final += "Y{})".format(L[i])
+
+    return final
+
 def basic_0():
     final = ""
     COLORES =  [3,1,5,5,
@@ -142,8 +168,8 @@ def basic_0():
     L = []
 
 
-    for i in range(1,len(COLORES)+1):
-        cod_num = cod3(i,COLORES[i-1],1,Ncuadros+1,Ncolores+1,Nturnos+1)
+    for i in range(0,len(COLORES)):
+        cod_num = codifica3(i,COLORES[i-1],1,Ncuadros,Ncolores,Nturnos)
         n = chr(255+cod_num)
         L.append(n)
 
@@ -165,14 +191,14 @@ def regla1():
     string= "("
 
     lista1=[]
-    for N in range(1,Nturnos+1):
-        for s in range(1,Ncuadros+1):
-            for c in range(1,Ncolores+1):
-                Y = chr(255 + cod3(s,c,N,Ncuadros+1,Ncolores+1,Nturnos+1))
+    for N in range(0,Nturnos):
+        for s in range(0,Ncuadros):
+            for c in range(0,Ncolores):
+                Y = chr(255 + codifica3(s,c,N,Ncuadros,Ncolores,Nturnos))
                 string += Y
     for i in range(Ncolores*4):
         k =i*6
-        fin = "({}>-((({}O{})O({}O{}))O({}O{})))".format(string[k],string[k+1],string[k+2],string[k+3],string[k+4],string[k+5],string[k+5])
+        fin = "({}>-((({}O{})O({}O{}))O({}O{})))".format(string[k],string[k],string[k+2],string[k+3],string[k+4],string[k+5],string[k+5])
         lista1.append(fin)
 
 
@@ -180,7 +206,7 @@ def regla1():
 
     return string
 
-def regla2():
+def regla2(k:int):
     """Movimiento tipo U (Up).
 
     Returns
@@ -189,35 +215,36 @@ def regla2():
 
     """
     Un = "("
-    for k in range(1,Nturnos):
-        for j in range(1,Ncolores+1):
-            b1 = Beta(16,j,k,15)
-            b2 = Beta(15,j,k,13)
-            b3 = Beta(13,j,k,14)
-            b4 = Beta(14,j,k,16)
-            b5 = Beta(2,j,k,6)
-            b6 = Beta(1,j,k,5)
-            b7 = Beta(10,j,k,2)
-            b8 = Beta(9,j,k,1)
-            b9 = Beta(24,j,k,10)
-            b10 = Beta(23,j,k,9)
-            b11 = Beta(6,j,k,24)
-            b12 = Beta(5,j,k,23)
-
-            b13 = Beta(7,j,k,7)
-            b14 = Beta(8,j,k,8)
-            b15 = Beta(3,j,k,3)
-            b16 = Beta(4,j,k,4)
-            b17 = Beta(11,j,k,11)
-            b18 = Beta(12,j,k,12)
-            b19 = Beta(17,j,k,17)
-            b20 = Beta(18,j,k,18)
-            b21 = Beta(19,j,k,19)
-            b22 = Beta(20,j,k,20)
-            b23 = Beta(21,j,k,21)
-            b24 = Beta(22,j,k,22)
-            Un += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
-            Un += "O"
+    print(k)
+    # for k in range(0,Nturnos):
+    for a in range(0,Ncolores):
+        b1 = Beta(15,a,k,14)
+        b2 = Beta(14,a,k,12)
+        b3 = Beta(12,a,k,13)
+        b4 = Beta(13,a,k,15)
+        b5 = Beta(1,a,k,5)
+        b6 = Beta(0,a,k,4)
+        b7 = Beta(9,a,k,1)
+        b8 = Beta(8,a,k,0)
+        b9 = Beta(23,a,k,8)     # OG: 23->09
+        b10 = Beta(22,a,k,9)    # OG: 23->09
+        b11 = Beta(5,a,k,22)    # OG: 04->23
+        b12 = Beta(4,a,k,23)    # OG: 05->23
+        #======STAY THE SAME=====#
+        b13 = Beta(6,a,k,6)
+        b14 = Beta(7,a,k,7)
+        b15 = Beta(2,a,k,2)
+        b16 = Beta(3,a,k,3)
+        b17 = Beta(10,a,k,10)
+        b18 = Beta(11,a,k,11)
+        b19 = Beta(16,a,k,16)
+        b20 = Beta(17,a,k,17)
+        b21 = Beta(18,a,k,18)
+        b22 = Beta(19,a,k,19)
+        b23 = Beta(20,a,k,20)
+        b24 = Beta(21,a,k,21)
+        Un += "((((((((((((((((((((((({}Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})Y{})".format(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24)
+        Un += "Y"
 
     Un = Un[0:-1]
     Un += ")"
@@ -232,8 +259,8 @@ def regla3():
 
     """
     Ui = "("
-    for k in range(1,Nturnos):
-        for j in range(1,Ncolores+1):
+    for k in range(0,Nturnos):
+        for j in range(0,Ncolores):
             b1 = Beta(15,j,k,16)
             b2 = Beta(13,j,k,15)
             b3 = Beta(14,j,k,13)
@@ -242,10 +269,11 @@ def regla3():
             b6 = Beta(5,j,k,1)
             b7 = Beta(2,j,k,10)
             b8 = Beta(1,j,k,9)
-            b9 = Beta(10,j,k,24)
-            b10 = Beta(9,j,k,23)
-            b11 = Beta(24,j,k,6)
-            b12 = Beta(23,j,k,5)
+            b9 = Beta(9,j,k,24)     # OG: 24<-10
+            b10 = Beta(10,j,k,23)   # OG: 23<-09
+            b11 = Beta(24,j,k,5)    # OG: 06<-24
+            b12 = Beta(23,j,k,6)    # OG: 05<-23
+
 
             b13 = Beta(7,j,k,7)
             b14 = Beta(8,j,k,8)
@@ -276,7 +304,7 @@ def regla4():
     """
     Fn = "("
     for k in range(1,Nturnos):
-        for j in range(1,Ncolores+1):
+        for j in range(1,Ncolores):
             b1 = Beta(1,j,k,2)
             b2 = Beta(2,j,k,4)
             b3 = Beta(4,j,k,3)
