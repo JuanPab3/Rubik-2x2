@@ -132,7 +132,7 @@ def creador_turnos(J:list,Ncuadros:int,Ncolores:int,Nturnos:int):
         c = l[1]
         t = l[2]
 
-        print("({},{},{})".format(s,c,t))
+#         print("({},{},{})".format(s,c,t))
         if (t <= Nturnos and t >= 0):
             if (s <= Ncuadros and s >= 0):
                 if (c <= Ncolores and c >= 0):
@@ -148,6 +148,7 @@ def creador_turnos(J:list,Ncuadros:int,Ncolores:int,Nturnos:int):
         else:
             pass
 
+    print(pasos)
     return pasos
 
 

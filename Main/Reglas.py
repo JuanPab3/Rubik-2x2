@@ -8,7 +8,7 @@ from operator import *
 #====================================CODIGO=====================================
 
 Ncuadros = 24   #Número de Cuadros
-Ncolores = 3    #Número de Colores
+Ncolores = 2    #Número de Colores
 Nturnos  = 2    #Número de Turnos
 
 max = 0
@@ -47,10 +47,9 @@ def Beta(i1:int, j1:int ,k1:int, i2:int ):
         Description of returned object.
 
     """
-    reg = ""
     ant = chr(255+codifica3(i1, j1, k1,Ncuadros,Ncolores,Nturnos))
     cons = chr(255+codifica3(i2, j1, k1,Ncuadros,Ncolores,Nturnos))
-    reg += "(-{}O{})".format(ant,cons)
+    reg = "-{}O{}".format(ant,cons)
 
     return reg
 
@@ -134,10 +133,10 @@ def basic_1():
     final = ""
     COLORES =  [0,0,0,0, # Front
                 1,1,1,1, # Left
-                1,1,1,1, # Right
-                2,1,1,2, # Up
-                1,1,1,1, # Down
-                0,0,0,0] # Back
+                2,2,2,2, # Right
+                3,3,3,3, # Up
+                4,4,4,4, # Down
+                5,5,5,5] # Back
     L = []
 
 
@@ -158,18 +157,18 @@ def basic_1():
 
 def basic_0():
     final = ""
-    COLORES =  [3,1,5,5,
-                5,6,2,6,
-                4,3,1,1,
-                1,4,2,2,
-                4,3,6,5,
-                4,3,2,6]
+    COLORES =  [2,0,4,4,
+                4,5,1,5,
+                3,2,0,0,
+                0,3,1,1,
+                3,2,5,4,
+                3,2,2,5]
 
     L = []
 
 
     for i in range(0,len(COLORES)):
-        cod_num = codifica3(i,COLORES[i-1],1,Ncuadros,Ncolores,Nturnos)
+        cod_num = codifica3(i,COLORES[i],0,Ncuadros,Ncolores,Nturnos)
         n = chr(255+cod_num)
         L.append(n)
 
@@ -214,8 +213,8 @@ def regla2(k:int):
     str
 
     """
+    assert((k < Nturnos-1) and (k>=0)), f'Turno invalido, k debe ser mayor o igual a 0 y menor a {Nturnos-1}, se utilizó {str(k)}.'
     Un = "("
-    print(k)
     # for k in range(0,Nturnos):
     for a in range(0,Ncolores):
         b1 = Beta(15,a,k,14)

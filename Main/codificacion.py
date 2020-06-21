@@ -29,6 +29,7 @@ def codifica3(f, c, o, Nf, Nc, No):
     assert((o >= 0) and (o <= No - 1)), "Fila incorrecta! Debe ser un numero entre 0 y {}".format(str(No - 1))
     v1 = codifica(f, c, Nf, Nc)
     v2 = codifica(v1, o , Nf * Nc, No)
+#     print(f'({f},{c},{o})->{v2}')
     return v2
 
 def decodifica3(x, Nf, Nc, No):
@@ -39,16 +40,17 @@ def decodifica3(x, Nf, Nc, No):
     # print('No: '+str(No))
     v1, o = decodifica(x, Nf * Nc, No)
     f, c = decodifica(v1, Nf, Nc)
+#     print(f'{x}->({f},{c},{o})')
     return f, c, o
 
 def deco_dict3(I:dict,Ncuadros:int,Ncolores:int,Nturnos:int):
     keys = I.keys()
     deco_list = []
     for i in keys:
-        print("i : "+i)
-        print('Ni: '+str(Ncuadros))
-        print('Nj: '+str(Ncolores))
-        print('Nk: '+str(Nturnos))
+#         print("i : "+i)
+#         print('Ni: '+str(Ncuadros))
+#         print('Nj: '+str(Ncolores))
+#         print('Nk: '+str(Nturnos))
         cud,col,tur = decodifica3(ord(i)- 255,Ncuadros,Ncolores,Nturnos)
         lis = [cud,col,tur,I[i]]
         # str = "{}-{}-{}-{}".format(tur,cud,col,I[i])

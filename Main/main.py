@@ -1,20 +1,21 @@
 #================================ASPECTOS_TECNICOS==============================
 from codificacion import deco_dict3
 from dpll import dpll
-from Reglas import *
+from reglas import *
+# from Reglas import *
 import FNC as fn
 #====================================CODIGO=====================================
 
 
 #reglas = [basic_0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(Nturnos),regla17()]
 #"({}Y{})".format(#regla2(),basic_0())
-formula  = "({}Y{})".format(regla2(1),basic_1())
-#formula = regla2()
-#formula  = basic_1()
+formula  = "(({1}Y{0})Y{2})".format(regla2(0) ,basic_1(),regla2(1))
+# formula = regla2()
 
 formula = formula.replace("(","")
 formula = formula.replace(")","")
-# print(formula)
+print(formula)
+print(formula)
 
 # print("inicio a Tseiting")
 # fFNC = fn.Tseitin(formula, lC)
@@ -32,7 +33,6 @@ fClaus = fn.formaClausal(formula)
 
 #print(len(fClaus))
 # print(regla2())
-#
 
 test = {}
 print("inicio a DPLL")
@@ -43,16 +43,17 @@ sat, dic = test
 # print(test)
 
 final = deco_dict3(dic,Ncuadros,Ncolores,Nturnos)
-
+# print(final)
 
 sorted(final, key=itemgetter(2))
 
+print(final)
 
 # print	(final)
 with open("satisfacible.txt", "w") as f:
     for i in final:
         if (i[3] == 1):
-            f.write("{} {} {}\n".format(i[0],i[1],i[2]))
+            f.write("{} {} {} {}\n".format(i[0],i[1],i[2],i[3]))
 
 file_list = []
 with open("satisfacible.txt","r") as f:

@@ -1,0 +1,134 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Atomos	allFunc.py	/^def Atomos(t):$/;"	f
+Beta	Reglas.py	/^def Beta(i1:int, j1:int ,k1:int, i2:int ):$/;"	f
+Beta	reglas.py	/^def Beta(i1:int, j1:int ,k1:int, i2:int ):$/;"	f
+BinaryTree	allFunc.py	/^class BinaryTree:$/;"	c
+C	allFunc.py	/^def C(t):$/;"	f
+Clausula	FNC.py	/^def Clausula(C):$/;"	f
+Ncolores	Reglas.py	/^Ncolores = 2    #Número de Colores$/;"	v
+Ncolores	reglas.py	/^Ncolores = 2    #Número de Colores$/;"	v
+Ncuadros	Reglas.py	/^Ncuadros = 24   #Número de Cuadros$/;"	v
+Ncuadros	reglas.py	/^Ncuadros = 24   #Número de Cuadros$/;"	v
+Nturnos	Reglas.py	/^Nturnos  = 2    #Número de Turnos$/;"	v
+Nturnos	reglas.py	/^Nturnos  = 2    #Número de Turnos$/;"	v
+P	allFunc.py	/^def P(t):$/;"	f
+RUBIC	CubeGraph.py	/^def RUBIC(movimientos:list,Ncuadros:int,Ncolores:int,Nturnos:int):$/;"	f
+Square	CubeGraph.py	/^class Square:$/;"	c
+Tree	allFunc.py	/^class Tree:$/;"	c
+Tseitin	FNC.py	/^def Tseitin(A, letrasProposicionalesA):$/;"	f
+TurnDic	CubeGraph.py	/^class TurnDic:$/;"	c
+Upsilon	Reglas.py	/^def Upsilon(m, T):$/;"	f
+VI	allFunc.py	/^def VI(t, i):$/;"	f
+W	allFunc.py	/^def W(f):$/;"	f
+__init__	CubeGraph.py	/^    def __init__(self, square:int, color:int, turn:int ): #O(turn)$/;"	m	class:TurnDic
+__init__	CubeGraph.py	/^    def __init__(self,x,y,color):$/;"	m	class:Square
+__init__	allFunc.py	/^    def __init__ (self, left, right):$/;"	m	class:BinaryTree
+__init__	allFunc.py	/^    def __init__(self, label, left, right):$/;"	m	class:Tree
+addInterp	dpll.py	/^def addInterp(I, l):$/;"	f
+allInterps	allFunc.py	/^def allInterps(letters):$/;"	f
+altura	allFunc.py	/^def altura(btree):$/;"	f
+basic_0	Reglas.py	/^def basic_0():$/;"	f
+basic_1	Reglas.py	/^def basic_1():$/;"	f
+basic_1	reglas.py	/^def basic_1():$/;"	f
+checkUnsatisf	allFunc.py	/^def checkUnsatisf(t):$/;"	f
+checkValid	allFunc.py	/^def checkValid(t):$/;"	f
+cod_num	Reglas.py	/^            cod_num = codifica3(i,j,k,Ncuadros,Ncolores,Nturnos)$/;"	v
+cod_num	reglas.py	/^            cod_num = codifica3(i,j,k,Ncuadros,Ncolores,Nturnos)$/;"	v
+codifica	codificacion.py	/^def codifica(f, c, Nf, Nc):$/;"	f
+codifica3	codificacion.py	/^def codifica3(f, c, o, Nf, Nc, No):$/;"	f
+complement	dpll.py	/^def complement(l):$/;"	f
+creador_turnos	CubeGraph.py	/^def creador_turnos(J:list,Ncuadros:int,Ncolores:int,Nturnos:int):$/;"	f
+cube	CubeGraph.py	/^cube = [s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24]$/;"	v
+deco_dict3	codificacion.py	/^def deco_dict3(I:dict,Ncuadros:int,Ncolores:int,Nturnos:int):$/;"	f
+decodifica	codificacion.py	/^def decodifica(x, Nf, Nc):$/;"	f
+decodifica3	codificacion.py	/^def decodifica3(x, Nf, Nc, No):$/;"	f
+dpll	dpll.py	/^def dpll(S,I):$/;"	f
+enFNC	FNC.py	/^def enFNC(A):$/;"	f
+fClaus	main.py	/^fClaus = fn.formaClausal(formula)$/;"	v
+file_list	main.py	/^file_list = []$/;"	v
+final	main.py	/^final = deco_dict3(dic,Ncuadros,Ncolores,Nturnos)$/;"	v
+formaClausal	FNC.py	/^def formaClausal(A):$/;"	f
+formula	main.py	/^formula  = "({}Y{})".format(regla2(0) ,basic_1())$/;"	v
+formula	main.py	/^formula = formula.replace("(","")$/;"	v
+formula	main.py	/^formula = formula.replace(")","")$/;"	v
+getLits	dpll.py	/^def getLits(S):$/;"	f
+hasUnit	dpll.py	/^def hasUnit(S):$/;"	f
+inorder	allFunc.py	/^def inorder(t):$/;"	f
+lC	Reglas.py	/^lC= []$/;"	v
+lC	reglas.py	/^lC= []$/;"	v
+max	Reglas.py	/^                max = cod_num$/;"	v
+max	Reglas.py	/^max = 0$/;"	v
+max	reglas.py	/^                max = cod_num$/;"	v
+max	reglas.py	/^max = 0$/;"	v
+modInterps	allFunc.py	/^def modInterps(t):$/;"	f
+n	Reglas.py	/^            n = chr(255+cod_num)$/;"	v
+n	reglas.py	/^            n = chr(255+cod_num)$/;"	v
+neg	allFunc.py	/^def neg(t):$/;"	f
+numAristas	allFunc.py	/^def numAristas(btree):$/;"	f
+numConect	allFunc.py	/^def numConect(t):$/;"	f
+numNodos	allFunc.py	/^def numNodos(btree):$/;"	f
+num_neg	allFunc.py	/^def num_neg(f):$/;"	f
+pex	CubeGraph.py	/^pex = (1.5*x\/3) - 60 #Pos. estandart en x$/;"	v
+pey	CubeGraph.py	/^pey = y\/12 #Pos. estandart en x$/;"	v
+regla0	Reglas.py	/^def regla0():$/;"	f
+regla1	Reglas.py	/^def regla1():$/;"	f
+regla10	Reglas.py	/^def regla10():$/;"	f
+regla11	Reglas.py	/^def regla11():$/;"	f
+regla12	Reglas.py	/^def regla12():$/;"	f
+regla13	Reglas.py	/^def regla13():$/;"	f
+regla14	Reglas.py	/^def regla14():$/;"	f
+regla15	Reglas.py	/^def regla15():$/;"	f
+regla16	Reglas.py	/^def regla16(Nturnos:int):$/;"	f
+regla17	Reglas.py	/^def regla17():$/;"	f
+regla2	Reglas.py	/^def regla2(k:int):$/;"	f
+regla2	reglas.py	/^def regla2(k:int):$/;"	f
+regla3	Reglas.py	/^def regla3():$/;"	f
+regla4	Reglas.py	/^def regla4():$/;"	f
+regla5	Reglas.py	/^def regla5():$/;"	f
+regla6	Reglas.py	/^def regla6():$/;"	f
+regla7	Reglas.py	/^def regla7():$/;"	f
+regla8	Reglas.py	/^def regla8():$/;"	f
+regla9	Reglas.py	/^def regla9():$/;"	f
+removeLit	dpll.py	/^def removeLit(S, lit):$/;"	f
+s1	CubeGraph.py	/^s1 = Square(pex,130+pey,0)$/;"	v
+s10	CubeGraph.py	/^s10 = Square(pex+180,130+pey,0)$/;"	v
+s11	CubeGraph.py	/^s11 = Square(pex+120,190+pey,0)$/;"	v
+s12	CubeGraph.py	/^s12 = Square(pex+180,190+pey,0)$/;"	v
+s13	CubeGraph.py	/^s13 = Square(pex,10+pey,0)$/;"	v
+s14	CubeGraph.py	/^s14 = Square(pex+60,10+pey,0)$/;"	v
+s15	CubeGraph.py	/^s15 = Square(pex,70+pey,0)$/;"	v
+s16	CubeGraph.py	/^s16 = Square(pex+60,70+pey,0)$/;"	v
+s17	CubeGraph.py	/^s17 = Square(pex,250+pey,0)$/;"	v
+s18	CubeGraph.py	/^s18 = Square(pex+60,250+pey,0)$/;"	v
+s19	CubeGraph.py	/^s19 = Square(pex,310+pey,0)$/;"	v
+s2	CubeGraph.py	/^s2 = Square(pex+60,130+pey,0)$/;"	v
+s20	CubeGraph.py	/^s20 = Square(pex+60,310+pey,0)$/;"	v
+s21	CubeGraph.py	/^s21 = Square(pex,370+pey,0)$/;"	v
+s22	CubeGraph.py	/^s22 = Square(pex+60,370+pey,0)$/;"	v
+s23	CubeGraph.py	/^s23 = Square(pex,430+pey,0)$/;"	v
+s24	CubeGraph.py	/^s24 = Square(pex+60,430+pey,0)$/;"	v
+s3	CubeGraph.py	/^s3 = Square(pex,190+pey,0)$/;"	v
+s4	CubeGraph.py	/^s4 = Square(pex+60,190+pey,0)$/;"	v
+s5	CubeGraph.py	/^s5 = Square(pex-120,130+pey,0)$/;"	v
+s6	CubeGraph.py	/^s6 = Square(pex-60,130+pey,0)$/;"	v
+s7	CubeGraph.py	/^s7 = Square(pex-120,190+pey,0)$/;"	v
+s8	CubeGraph.py	/^s8 = Square(pex-60,190+pey,0)$/;"	v
+s9	CubeGraph.py	/^s9 = Square(pex+120,130+pey,0)$/;"	v
+setColor	CubeGraph.py	/^    def setColor(self, color):$/;"	m	class:Square
+setCube	CubeGraph.py	/^def setCube(listaR,listaC):$/;"	f
+setSize	CubeGraph.py	/^    def setSize(self,v:float):$/;"	m	class:Square
+subforms	allFunc.py	/^def subforms(t):$/;"	f
+sust	allFunc.py	/^def sust(b, a, ap):$/;"	f
+test	main.py	/^test = dpll(fClaus,test)$/;"	v
+test	main.py	/^test = {}$/;"	v
+turnosMax	CubeGraph.py	/^turnosMax = 4$/;"	v
+unitPropagate	dpll.py	/^def unitPropagate(S, I):$/;"	f
+unitPropagation	dpll.py	/^def unitPropagation(S, lit = None):$/;"	f
+win	CubeGraph.py	/^win = pg.display.set_mode((x,y))$/;"	v
+x	CubeGraph.py	/^x = 1280$/;"	v
+y	CubeGraph.py	/^y = 720$/;"	v
