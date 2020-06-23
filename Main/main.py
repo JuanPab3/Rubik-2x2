@@ -5,12 +5,14 @@ from reglas import *
 # from Reglas import *
 import FNC as fn
 #====================================CODIGO=====================================
-
+lC = lc()
 
 #reglas = [basic_0(),regla1(),regla2(),regla3(),regla4(),regla5(),regla6(),regla7(),regla8(),regla9(),regla10(),regla11(),regla12(),regla13(),regla14(),regla15(),regla16(Nturnos),regla17()]
 #"({}Y{})".format(#regla2(),basic_0())
-formula  = "(({1}Y{0})Y{2})".format(regla2(0) ,basic_1(),regla2(1))
+formula  = "({1}Y{0})".format(regla2p(0) ,basic_1())
+# formula  = "(({1}Y{0})Y{2})".format(regla2p(0) ,basic_1(),regla2p(1))
 # formula = regla2()
+# formula =basic_1()
 
 formula = formula.replace("(","")
 formula = formula.replace(")","")
@@ -28,6 +30,7 @@ print(formula)
 
 # Se obtiene la forma clausal como lista de listas de literales
 # print("inicio a Clausal")
+
 fClaus = fn.formaClausal(formula)
 # print(fClaus)
 
@@ -43,7 +46,14 @@ sat, dic = test
 # print(test)
 
 final = deco_dict3(dic,Ncuadros,Ncolores,Nturnos)
-# print(final)
+print(dic)
+
+for k in  dic.keys():
+    if k in lC:
+        s,c,t = decodifica3(ord(k)-256, Ncuadros,Ncolores,Nturnos)
+        print(f'S{s} C{c} T{t} -> {dic[k]}')
+    else:
+        print("fail")
 
 sorted(final, key=itemgetter(2))
 

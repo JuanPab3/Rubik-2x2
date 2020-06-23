@@ -51,7 +51,7 @@ def deco_dict3(I:dict,Ncuadros:int,Ncolores:int,Nturnos:int):
 #         print('Ni: '+str(Ncuadros))
 #         print('Nj: '+str(Ncolores))
 #         print('Nk: '+str(Nturnos))
-        cud,col,tur = decodifica3(ord(i)- 255,Ncuadros,Ncolores,Nturnos)
+        cud,col,tur = decodifica3(ord(i)- 256,Ncuadros,Ncolores,Nturnos)
         lis = [cud,col,tur,I[i]]
         # str = "{}-{}-{}-{}".format(tur,cud,col,I[i])
         deco_list.append(lis)
